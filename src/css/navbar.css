@@ -1,14 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap');
 
-.home_navbar{
+.format.home_navbar{
     width: 100%;
     height: 760px;
     display: flex;
     background:url("/public/imagesfurnis/ImagePlaceholder.svg");
     background-size: cover;
     font-family: 'Space Grotesk', sans-serif;
+    position:sticky;
+    
 }
+.format_shop.home_navbar{
+    width: 100%;
+    height: 760px;
+    display: flex;
+    background:url("/public/imagesfurnis/shopimage.svg");
+    background-size: cover;
+    font-family: 'Space Grotesk', sans-serif;
+} 
 
+.format_other.home_navbar{
+    width: 100%;
+    height: 760px;
+    display: flex;
+    background:url("/public/imagesfurnis/otherheader.png");
+    background-size: cover;
+    font-family: 'Space Grotesk', sans-serif;
+} 
 .home_navbar .navbar_container{
 
     margin-top: 55px;

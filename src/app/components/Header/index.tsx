@@ -2,9 +2,9 @@ import { Badge, Box, Container, IconButton, Stack } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export function NavbarHome(props:any) {
+export function NavbarHome(props: any) {
   return (
-    <div className="home_navbar">
+    <div className="format home_navbar">
       <Container>
         <Stack
           flexDirection={"row"}
@@ -41,26 +41,30 @@ export function NavbarHome(props:any) {
               </NavLink>
             </Box>
             <Stack
-             display={'flex'}
-             flexDirection={"row"}
-             justifyContent={'space-between'}
-             marginRight={'20px'}
+              display={"flex"}
+              flexDirection={"row"}
+              justifyContent={"space-between"}
+              marginRight={"20px"}
             >
-              <IconButton  aria-label="cart"
-                id="basic-button"
-                aria-controls={undefined}
-                aria-haspopup='true'
-                aria-expanded={undefined}
-                onClick={props.setPath}>
-                <NavLink to="/account"><img src="/iconsfurnis/usercircle.svg" alt="" /></NavLink>
-              </IconButton>
-              <Box>
-                <IconButton
+              <IconButton
                 aria-label="cart"
                 id="basic-button"
                 aria-controls={undefined}
-                aria-haspopup='true'
+                aria-haspopup="true"
                 aria-expanded={undefined}
+                onClick={props.setPath}
+              >
+                <NavLink to="/account">
+                  <img src="/iconsfurnis/usercircle.svg" alt="" />
+                </NavLink>
+              </IconButton>
+              <Box>
+                <IconButton
+                  aria-label="cart"
+                  id="basic-button"
+                  aria-controls={undefined}
+                  aria-haspopup="true"
+                  aria-expanded={undefined}
                 >
                   <Badge badgeContent={3} color="secondary">
                     <img src="/iconsfurnis/shoppingbag.svg" alt="" />
@@ -71,6 +75,8 @@ export function NavbarHome(props:any) {
           </Stack>
         </Stack>
       </Container>
+      
     </div>
+    
   );
 }
