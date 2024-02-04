@@ -2,13 +2,15 @@
 
 .footer_section {
   width: 100%;
-  height: 340px;
+  height: 540px;
   display: flex;
+  flex-direction: column;
+ 
   font-family: "Space Grotesk", sans-serif;
   background: url("/public/imagesfurnis/footer.svg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+
 }
 .newsletter {
   color: rgb(20, 23, 24);
@@ -34,4 +36,35 @@
     width: 396px;
     height: 28px;
     margin-left: 10px;
+}
+
+.signup{
+    font-family: "Space Grotesk", sans-serif;
+    text-decoration: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    background:none;
+    
+}
+
+.footer_down{
+    width:100% ;
+    height: 249px;
+    background-color: rgb(20, 23, 24);
+    background-size: cover;
+    margin-top: 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+
+}
+.line{
+    width: 1px;
+    height: 24px;
+    position: static;
+    background: rgb(108, 114, 117);
+    
 }
