@@ -1,11 +1,11 @@
-import { Badge, Box, Container, IconButton, Stack } from "@mui/material";
+import { Badge, Box, Button, Container, IconButton, Stack } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
 export function NavbarHome(props: any) {
   return (
     <div className="format home_navbar">
-      <Container>
+      <Container >
         <Stack
           flexDirection={"row"}
           className="navbar_container"
@@ -73,6 +73,12 @@ export function NavbarHome(props: any) {
               </Box>
             </Stack>
           </Stack>
+        </Stack>
+        <Stack className="header_main">
+          <Box>Transform your space with <span>timeless</span> elegance and <span>exquisite</span> comfort.</Box>
+          <button className="header_button"> Shop Now</button>
+
+          
         </Stack>
       </Container>
       

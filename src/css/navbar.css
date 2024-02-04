@@ -8,8 +8,8 @@
     background-size: cover;
     font-family: 'Space Grotesk', sans-serif;
     position:sticky;
-    
 }
+
 .format_shop.home_navbar{
     width: 100%;
     height: 760px;
@@ -67,4 +67,54 @@
     transform: scaleX(1);
   
 }
+
+.header_main{
+   width: 380px;
+   text-align: left;
+   display: flex;
+   margin-top: 120px;
+   margin-left: 60px;
+   font-size: 39px;
+   font-weight: bold;
+   color: #47451d;
+}
+span{
+    color: #ffae00;
+
+
+}
+
+.header_button{
+
+      background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+      border: 0;
+      border-radius: 12px;
+      color: #302e14;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 2.5;
+      outline: transparent;
+      padding: 0 1rem;
+      text-align: center;
+      text-decoration: none;
+      transition: box-shadow .2s ease-in-out;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      white-space: nowrap;
+      margin-top: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+
+    }
+    
+    .header_button:not([disabled]):focus {
+      box-shadow: 0 0 .25rem rgba(241, 194, 194, 0.5), -.125rem -.125rem 1rem rgba(250, 171, 80, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    }
+    
+    .header_button:not([disabled]):hover {
+      box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 172, 48, 0.5);
+    }
+
 

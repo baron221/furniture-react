@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../css/App.css";
 import "../css/navbar.css";
+import "../css/footer.css";
+
 
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -11,6 +13,7 @@ import { HomePage } from "./screens/HomePage";
 import { NavbarHome } from "./components/Header";
 import { NavbarShop } from "./components/Header/shop";
 import { NavbarOthers } from "./components/Header/others";
+import { Footer } from "./components/footer";
 
 function App() {
   const [ path, setPath] = useState();
@@ -24,26 +27,7 @@ function App() {
       ) : (
         <NavbarOthers setPath={setPath}  />
 )}
-      {/* <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">HomePage</Link>
-            </li>
-            <li>
-              <Link to="/shop">ShopPage</Link>
-            </li>
-            <li>
-              <Link to="/product">ProductPage</Link>
-            </li>
-            <li>
-              <Link to="/contactus">ContactPage</Link>
-            </li>
-          </ul>
-        </nav> */}
-
-      {/* A <Switch> looks through its children <Route>s and
-          renders the first one that matches the current URL. */}
+    
       <Switch>
         <Route path="/contact">
           <ContactPage />
@@ -58,6 +42,7 @@ function App() {
           <HomePage />
         </Route>
       </Switch>
+      <Footer/>
     </Router>
   );
 }
