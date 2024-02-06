@@ -55,16 +55,48 @@
     background-size: cover;
     margin-top: 28px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    
+    color: aliceblue;
 
 
 }
+
 .line{
     width: 1px;
     height: 24px;
     position: static;
     background: rgb(108, 114, 117);
+    margin: 10px;
     
+}
+.line1{
+    width: 1040px;
+    height: 1px;
+    background: rgb(107, 115, 119);
+    margin: 25px;
+    align-items: center;
+    display: flex;
+
+    
+}
+
+
+
+.footer_links{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 980px;
+    height: 46px;
+}    
+
+a{
+    text-decoration: none;
+    color: aliceblue;
+
+}
+.last_stroke{
+    display: flex;
+    align-items: center;
+    flex-direction:row;
 }
