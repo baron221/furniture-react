@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap');
+
+.category_frame{
+    background-color: rgb(255, 255, 255);
+}
+.living_room{
+    font-size: 29px;
+ width: 548px;
+ height: 648px;
+ background-repeat: no-repeat;
+ background: url('/public/imagesfurnis/livingroom.svg');
+ font-family: 'Space Grotesk', sans-serif;
+ color: black;
+
+}

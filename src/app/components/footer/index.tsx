@@ -32,14 +32,14 @@ export function Footer(props: any) {
           </Box>
         </Stack>
       </Container>
-      
-      <Stack className="footer_down" >
+
+      <Stack className="footer_down">
         <Container>
           <Stack
             flexDirection={"row"}
             alignItems={"center"}
-            justifyContent={'center'}
-            marginTop={'30px'}
+            justifyContent={"center"}
+            marginTop={"30px"}
           >
             <Box>
               <img
@@ -77,22 +77,24 @@ export function Footer(props: any) {
                   Contact Us
                 </NavLink>
               </Box>
-              
             </Stack>
           </Stack>
+          
           <Box className="line1"></Box>
-          <Stack className="last_stroke">
-            <Box>Copyright © 2024 Furnis. All rights reserved</Box>
-            <Box >
-            <IconButton
+          <Stack className="last_stroke" 
+          flexDirection={'row'}
+          justifyContent={'space-between'}>
+            <Box>Copyright © 2024 Furnis. All rights reserved
+                
+            </Box>
+            <Box>
+              <IconButton
                 aria-label="cart"
                 id="basic-button"
                 aria-controls={undefined}
                 aria-haspopup="true"
                 aria-expanded={undefined}
                 onClick={props.setPath}
-                
-
               >
                 <NavLink to="/">
                   <img src="/iconsfurnis/instagram.svg" alt="" />
@@ -124,7 +126,7 @@ export function Footer(props: any) {
               </IconButton>
             </Box>
           </Stack>
-          </Container>
+        </Container>
       </Stack>
     </div>
   );

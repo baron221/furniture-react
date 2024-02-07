@@ -96,7 +96,9 @@ a{
 
 }
 .last_stroke{
-    display: flex;
+    margin-left: 30px;
+    
     align-items: center;
-    flex-direction:row;
+    width: 980px;
+    height: 46px;    
 }

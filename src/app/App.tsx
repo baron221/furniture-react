@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../css/App.css";
 import "../css/navbar.css";
 import "../css/footer.css";
+import "../css/home.css";
 
 
 import { Box, Container, Stack, Typography } from "@mui/material";
