@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 export function Footer(props: any) {
   return (
     <div className="footer_section">
-      <Container>
+      <Container >
         <Stack display={"flex"} alignItems={"center"}>
           <Box className="newsletter">Join Our Newsletter</Box>
           <Box className="deals">
@@ -33,7 +33,7 @@ export function Footer(props: any) {
         </Stack>
       </Container>
 
-      <Stack className="footer_down">
+      <Stack className="footer_down" >
         <Container>
           <Stack
             flexDirection={"row"}

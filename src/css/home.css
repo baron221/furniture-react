@@ -83,6 +83,10 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 48px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  margin-bottom: 30px;
+
 }
 .newarrival_frame .underline{
   border-bottom: solid 1.5px rgb(6, 12, 107);
