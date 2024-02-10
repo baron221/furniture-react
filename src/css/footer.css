@@ -5,12 +5,17 @@
   height: 540px;
   display: flex;
   flex-direction: column;
- 
+  color: aliceblue;
   font-family: "Space Grotesk", sans-serif;
   background: url("/public/imagesfurnis/footer.svg");
   background-repeat: no-repeat;
   background-size: cover;
 
+}
+ .hover a{
+    color: #edf0f8;
+    font-weight: 600;
+    font-size: larger;
 }
 .newsletter {
   color: rgb(20, 23, 24);

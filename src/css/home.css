@@ -1,15 +1,91 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap");
 
-.category_frame{
-    background-color: rgb(255, 255, 255);
+/* Category component start*/
+.category_frame {
+  background-color: rgb(255, 255, 255);
 }
-.living_room{
+
+
+.right_side {
+  width: 548px;
+  height: 684px;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  width: 548px;
+  margin-left:30px;
+  
+}
+.living_room {
+  font-size: 29px;
+  width: 558px;
+  height: 664px;
+  background-repeat: no-repeat;
+  background: url("/public/imagesfurnis/livingroom.svg");
+  font-family: "Space Grotesk", sans-serif;
+  background-size: cover;
+  color: #021641;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.bed_room {
+  font-size: 29px;
+  width: 548px;
+  height: 319px;
+  background-repeat: no-repeat;
+  background: url("/public/imagesfurnis/bedroom.svg");
+  font-family: "Space Grotesk", sans-serif;
+  color: #021641;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.kitchen {
+  font-size: 29px;
+  width: 548px;
+  height: 319px;
+  background-repeat: no-repeat;
+  background: url("/public/imagesfurnis/kitchen.svg");
+  font-family: "Space Grotesk", sans-serif;
+  color: #021641;
+  margin-top: 20px;
+  padding: 20px;
+}
+.office {
     font-size: 29px;
- width: 548px;
- height: 648px;
- background-repeat: no-repeat;
- background: url('/public/imagesfurnis/livingroom.svg');
- font-family: 'Space Grotesk', sans-serif;
- color: black;
+    width: 548px;
+    height: 664px;
+    background-repeat: no-repeat;
+    background: url("/public/imagesfurnis/office.svg");
+    background-size:cover ;
+    background-color: rgb(230, 255, 255);
+    font-family: "Space Grotesk", sans-serif;
+    color: #021641;
+    margin-top: 20px;
+    padding: 20px;
+    margin-left: 30px;
+  }
 
+ a {
+  color: #021641;
+  font-size: 22px;
 }
+
+/* Category component end*/
+
+/*New Arrival component start*/
+
+.title{
+  width: 100%;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 48px;
+}
+.newarrival_frame .underline{
+  border-bottom: solid 1.5px rgb(6, 12, 107);
+}
+
+

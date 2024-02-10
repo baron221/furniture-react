@@ -19,7 +19,7 @@ import "swiper/css/pagination";
 export function NavbarHome(props: any) {
   return (
     <><div className="format home_navbar">
-        <Container>
+        <Container maxWidth='xl'>
 
           <Stack
             flexDirection={"row"}
@@ -27,7 +27,7 @@ export function NavbarHome(props: any) {
             justifyContent={"space-between"}
           >
             <Box>
-              <img src="/imagesfurnis/Logo.svg" alt="" />
+              <img   src="/imagesfurnis/Logo.svg" alt="" />
             </Box>
             <Stack
               flexDirection={"row"}

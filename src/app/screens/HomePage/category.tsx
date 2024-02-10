@@ -5,8 +5,8 @@ import { Link, NavLink } from "react-router-dom";
 export function Category(props: any) {
   return (
     <div className="category_frame">
-      <Container>
-        <Stack >
+      <Container maxWidth="xl">
+        <Stack className="category_section" flexDirection={"row"}>
           <Box className="living_room">
             Living Room
             <Box onClick={props.setPath}>
@@ -15,8 +15,32 @@ export function Category(props: any) {
               </Link>
             </Box>
           </Box>
-          <Box className="living_room1"></Box>
-          <Box className="living_room2"></Box>
+          <Box className="right_side">
+            <Box className="bed_room">
+              Bed Room
+              <Box onClick={props.setPath}>
+                <Link to="/shop">
+                  Shop now <img src="/iconsfurnis/arrow-right.svg" alt="" />
+                </Link>
+              </Box>
+            </Box>
+            <Box className="kitchen">
+              Kitchen
+              <Box onClick={props.setPath}>
+                <Link to="/shop">
+                  Shop now <img src="/iconsfurnis/arrow-right.svg" alt="" />
+                </Link>
+              </Box>
+            </Box>
+          </Box>
+          <Box className="office">
+              Office
+              <Box onClick={props.setPath}>
+                <Link to="/shop">
+                  Shop now <img src="/iconsfurnis/arrow-right.svg" alt="" />
+                </Link>
+              </Box>
+            </Box>
         </Stack>
       </Container>
     </div>
