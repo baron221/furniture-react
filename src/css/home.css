@@ -3,6 +3,8 @@
 /* Category component start*/
 .category_frame {
   background-color: rgb(255, 255, 255);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
 }
 
 
