@@ -11,7 +11,7 @@ export function Features() {
           justifyContent={"space-around"}
           marginTop={"60px"}
         >
-          <Fade direction="left">
+          <Fade direction="left" triggerOnce={true}>
             <Box >
               <img src="/imagesfurnis/card1.svg" alt="" />
             </Box>
@@ -19,7 +19,7 @@ export function Features() {
               <img src="/imagesfurnis/card2.svg" alt="" />
             </Box>
             </Fade>
-            <Fade direction="right">
+            <Fade direction="right" triggerOnce={true}>
 
             <Box >
               <img src="/imagesfurnis/card3.svg" alt="" />

@@ -24,12 +24,18 @@ function App() {
       {main_path == "/" ? (
           <NavbarHome setPath={setPath}   />
       ) : main_path.includes("/shop") ? (
-        <NavbarShop  setPath={setPath} />
+        <NavbarShop setPath={setPath} />
       ) : (
         <NavbarOthers setPath={setPath}  />
 )}
     
       <Switch>
+      <Route path="/login">
+          <ContactPage />
+        </Route>
+      <Route path="/community">
+          <ContactPage />
+        </Route>
         <Route path="/contact">
           <ContactPage />
         </Route>

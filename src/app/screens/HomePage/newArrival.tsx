@@ -30,7 +30,7 @@ export function NewArrival() {
         <Stack flexDirection={'row'} sx={{mt:'43px'}}  justifyContent={'space-around'}>
 
         <CssVarsProvider>
-          <Fade direction="left">
+          <Fade direction="left" triggerOnce={true}>
 
           <Card sx={{ minHeight: "400px", width: 349 ,cursor:"pointer"}}>
             <CardCover>
@@ -207,7 +207,7 @@ export function NewArrival() {
             </CardOverflow>
           </Card>
           </Fade>
-          <Fade direction="right">
+          <Fade direction="right" triggerOnce={true}>
 
           <Card sx={{ minHeight: "400px", width: 349 ,cursor:"pointer"}}>
             <CardCover>

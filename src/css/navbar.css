@@ -13,7 +13,8 @@
   width: 100%;
   height: 760px;
   display: flex;
-  background:url("/public/imagesfurnis/ImagePlaceholder.svg") ;
+  background:url("/public/imagesfurnis/ImagePlaceholder.jpeg") ;
+  background-repeat: no-repeat;
   background-size: cover;
   font-family: "Space Grotesk", sans-serif;
 }
