@@ -6,19 +6,16 @@
   font-family: "Space Grotesk", sans-serif;
   font-weight: 700;
   margin-top: 120px;
-
 }
 
-
-.right_side {
+.category_frame .right_side {
   width: 548px;
   height: 684px;
   display: flex;
   flex-direction: column;
-  justify-content:space-around;
+  justify-content: space-around;
   width: 548px;
-  margin-left:30px;
-  
+  margin-left: 30px;
 }
 .living_room {
   font-size: 29px;
@@ -57,21 +54,21 @@
   padding: 20px;
 }
 .office {
-    font-size: 29px;
-    width: 548px;
-    height: 664px;
-    background-repeat: no-repeat;
-    background: url("/public/imagesfurnis/office.svg");
-    background-size:cover ;
-    background-color: rgb(230, 255, 255);
-    font-family: "Space Grotesk", sans-serif;
-    color: #021641;
-    margin-top: 20px;
-    padding: 20px;
-    margin-left: 30px;
-  }
+  font-size: 29px;
+  width: 548px;
+  height: 664px;
+  background-repeat: no-repeat;
+  background: url("/public/imagesfurnis/office.svg");
+  background-size: cover;
+  background-color: rgb(230, 255, 255);
+  font-family: "Space Grotesk", sans-serif;
+  color: #021641;
+  margin-top: 20px;
+  padding: 20px;
+  margin-left: 30px;
+}
 
- a {
+a {
   color: #021641;
   font-size: 22px;
 }
@@ -80,9 +77,9 @@
 
 /*New Arrival component start*/
 
-.title{
+.title {
   width: 100%;
-  display:flex;
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -90,8 +87,40 @@
   font-family: "Space Grotesk", sans-serif;
   font-weight: 700;
   margin-bottom: 30px;
+}
+.newarrival_frame .underline {
+  border-bottom: solid 1.5px rgb(6, 12, 107);
+}
+
+/*New Arrival component end*/
+
+/*Sale section component start*/
+
+.sale_frame{
+  display: flex;
+  flex-direction: row;
+  background-color: azure;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  height: 608px;
+}
+
+.sale_right_side {
+  display: flex;
+  flex-direction: column;
+  margin: 100px;  
+  margin-left: 160px;
+  width: 452px;
+  height: 200px;
+  font-family: "Space Grotesk", sans-serif;
+
+  /* Auto layout */
+
 
 }
-.newarrival_frame .underline{
+ .articles_frame .underline {
+  width: 135px;
+  margin-top: 10px;
+  margin-bottom: 60px;
   border-bottom: solid 1.5px rgb(6, 12, 107);
 }

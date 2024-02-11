@@ -21,7 +21,8 @@ export function NavbarHome(props: any) {
     <>
       <div className="format home_navbar">
         <Container maxWidth="xl">
-          <Fade direction="up" triggerOnce={true} >
+          <Fade direction="up" triggerOnce={true}
+           >
 
           <Stack
             flexDirection={"row"}
@@ -118,7 +119,7 @@ export function NavbarHome(props: any) {
               </Box>
               </SwiperSlide>
               <SwiperSlide className="slide2"></SwiperSlide>
-              <SwiperSlide className="slide3">Slide 3</SwiperSlide>
+              <SwiperSlide className="slide3"></SwiperSlide>
               {/* <Box>
                 <>
                   {" "}
