@@ -8,18 +8,20 @@ import {
 } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 // import Swiper and modules styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
+import { Fade } from "react-awesome-reveal";
 
 export function NavbarHome(props: any) {
   return (
-    <><div className="format home_navbar">
-        <Container maxWidth='xl'>
+    <>
+      <div className="format home_navbar">
+        <Container maxWidth="xl">
+          <Fade direction="up" triggerOnce={true} >
 
           <Stack
             flexDirection={"row"}
@@ -27,7 +29,7 @@ export function NavbarHome(props: any) {
             justifyContent={"space-between"}
           >
             <Box>
-              <img   src="/imagesfurnis/Logo.svg" alt="" />
+              <img src="/imagesfurnis/Logo.svg" alt="" />
             </Box>
             <Stack
               flexDirection={"row"}
@@ -89,15 +91,52 @@ export function NavbarHome(props: any) {
               </Stack>
             </Stack>
           </Stack>
-          
-          <Stack className="header_main">
-            <Box>
-             <> <div id="parent">Transform your <br/> space  with <span>timeless</span> <br />elegance  and <br />
-               <span> exquisite</span> comfort. <div id='border'></div></div></>
-            </Box>
-            <button className="header_button"> Shop Now</button>
-          </Stack>
+
+           
+          <Swiper
+              pagination={{
+                type: "fraction",
+              }}
+              navigation={true}
+              modules={[Pagination, Navigation]}
+              className="mySwiper"
+              
+            >
+              <SwiperSlide className="slide1">
+              <Box>
+              
+                  <div id="parent" className="header_main">
+                    Transform your <br /> space with <span>timeless</span>{" "}
+                    <br />
+                    elegance and <br />
+                    <span> exquisite</span> comfort. <div id="border"></div>
+                  </div>
+                
+              </Box>
+              <Box>
+                <button className="header_button"> Shop Now</button>
+              </Box>
+              </SwiperSlide>
+              <SwiperSlide className="slide2"></SwiperSlide>
+              <SwiperSlide className="slide3">Slide 3</SwiperSlide>
+              {/* <Box>
+                <>
+                  {" "}
+                  <div id="parent">
+                    Transform your <br /> space with <span>timeless</span>{" "}
+                    <br />
+                    elegance and <br />
+                    <span> exquisite</span> comfort. <div id="border"></div>
+                  </div>
+                </>
+              </Box>
+              <Box>
+                <button className="header_button"> Shop Now</button>
+              </Box> */}
+            </Swiper> 
+          </Fade>
         </Container>
-      </div></>
+      </div>
+    </>
   );
 }

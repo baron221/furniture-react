@@ -6,6 +6,8 @@ import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import CardContent from "@mui/joy/CardContent";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { Fade } from "react-awesome-reveal";
+
 
 import Typography from "@mui/joy/Typography";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
@@ -28,6 +30,8 @@ export function NewArrival() {
         <Stack flexDirection={'row'} sx={{mt:'43px'}}  justifyContent={'space-around'}>
 
         <CssVarsProvider>
+          <Fade direction="left">
+
           <Card sx={{ minHeight: "400px", width: 349 ,cursor:"pointer"}}>
             <CardCover>
               <img src="/imagesfurnis/ikea.png" alt="" />
@@ -202,6 +206,9 @@ export function NewArrival() {
               </Typography>
             </CardOverflow>
           </Card>
+          </Fade>
+          <Fade direction="right">
+
           <Card sx={{ minHeight: "400px", width: 349 ,cursor:"pointer"}}>
             <CardCover>
               <img src="/imagesfurnis/ikea.png" alt="" />
@@ -376,6 +383,7 @@ export function NewArrival() {
               </Typography>
             </CardOverflow>
           </Card>
+          </Fade>
         </CssVarsProvider>
         </Stack>
 

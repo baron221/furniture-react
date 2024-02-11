@@ -1,169 +1,188 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap");
 
-.format.home_navbar{
-    width: 100%;
-    height: 760px;
-    display: flex;
-    background:url("/public/imagesfurnis/Paste.svg");
-    background-size: cover;
-    font-family: 'Space Grotesk', sans-serif;
+.format.home_navbar {
+  width: 100%;
+  height: 760px;
+  display: flex;
+  /* background-color: aliceblue; */
+  background-size: cover;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.format_shop.home_navbar {
+  width: 100%;
+  height: 760px;
+  display: flex;
+  background:url("/public/imagesfurnis/ImagePlaceholder.svg") ;
+  background-size: cover;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.format_other.home_navbar {
+  width: 100%;
+  height: 760px;
+  display: flex;
+  background: url("/public/imagesfurnis/otherheader.png");
+  background-size: cover;
+  font-family: "Space Grotesk", sans-serif;
+}
+.home_navbar .navbar_container {
+  height: 100px;
+  margin-top: 55px;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 20px;
+
+
+}
+.home_navbar .navbar_links {
+  display: flex;
+  justify-content: space-around;
+  width: 752px;
+  height: 46px;
+  padding-left: 160px;
 
 }
 
-
-.format_shop.home_navbar{
-    width: 100%;
-    height: 760px;
-    display: flex;
-    background:url("/public/imagesfurnis/shopimage.svg");
-    background-size: cover;
-    font-family: 'Space Grotesk', sans-serif;
-} 
-
-.format_other.home_navbar{
-    width: 100%;
-    height: 760px;
-    display: flex;
-    background:url("/public/imagesfurnis/otherheader.png");
-    background-size: cover;
-    font-family: 'Space Grotesk', sans-serif;
-} 
-.home_navbar .navbar_container{
-
-    margin-top: 55px;
-    margin-left: auto;
-}
-.home_navbar .navbar_links{
-    display: flex;
-    justify-content: space-evenly;
-    width: 752px;
-    height: 46px;
+.home_navbar a {
+  text-decoration: none;
 }
 
-.home_navbar a{
-    text-decoration: none;
+.home_navbar .hover a {
+  color: #021641;
+  font-weight: 600;
+  font-size: larger;
 }
 
-.home_navbar .hover a{
-    color: #021641;
-    font-weight: 600;
-    font-size: larger;
+.home_navbar .underline {
+  display: block;
+  content: "";
+  border-bottom: solid 1.5px rgb(6, 12, 107);
 }
 
-.home_navbar .underline{
-    display: block;
-    content: "";
-    border-bottom: solid 1.5px rgb(6, 12, 107);
+.home_navbar .hover:after {
+  display: block;
+  content: "";
+  border-bottom: solid 2px rgb(16, 41, 109);
+  transform: scaleX(0);
+  transition: transform 250ms ease;
 }
 
-.home_navbar .hover:after{
-    display: block;
-    content: "";
-    border-bottom: solid 2px rgb(16, 41, 109);
-    transform: scaleX(0);
-    transition: transform 250ms ease;
+.home_navbar .hover:hover:after {
+  transform: scaleX(1);
 }
 
-.home_navbar .hover:hover:after{
-   
-    transform: scaleX(1);
+.mySwiper {
+  width: 100%;
+  height: 660px;
   
 }
-
-.header_main{
-   width: 380px;
-   text-align: left;
-   display: flex;
-   margin-top: 120px;
-   margin-left: 60px;
-   font-size:40px;
-   font-weight: bold;
-   color: #1b007c;
-}
-span{
-    color: #ff8800;
-
+.slide1 {
+  width: fit-content;
+  background: url("/public/imagesfurnis/sofa.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
 
 }
 
-.header_button{
+.slide2 {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background: url("/public/imagesfurnis/slide2.jpeg");
+}
+.slide3 {
+  width: 1120px;
 
-      background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
-      border: 0;
-      border-radius: 12px;
-      color: #030c3d;
-      cursor: pointer;
-      display: inline-block;
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 2.5;
-      outline: transparent;
-      padding: 0 1rem;
-      text-align: center;
-      text-decoration: none;
-      transition: box-shadow .2s ease-in-out;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
-      white-space: nowrap;
-      margin-top: 10px;
-      font-family: 'Space Grotesk', sans-serif;
-
-    }
-    
-    .header_button:not([disabled]):focus {
-      box-shadow: 0 0 .25rem rgba(241, 194, 194, 0.5), -.125rem -.125rem 1rem rgba(250, 171, 80, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
-    }
-    
-    .header_button:not([disabled]):hover {
-      box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 172, 48, 0.5);
-    }
+  background: url("/public/imagesfurnis/slide3.jpeg");
+}
 
 
+span {
+  color: #ff009d;
+}
 
+.header_button {
+  background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
+  border: 0;
+  border-radius: 12px;
+  color: #030c3d;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow 0.2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  margin-top: 10px;
+  margin-left: 60px;
+  font-family: "Space Grotesk", sans-serif;
+}
 
- 
-  
-  #parent {
-    white-space: nowrap;
-    overflow: hidden; 
-    font-family: 'Source Code Pro', monospace;  
-    font-size: 28px;
+.header_button:not([disabled]):focus {
+  box-shadow: 0 0 0.25rem rgba(241, 194, 194, 0.5),
+    -0.125rem -0.125rem 1rem rgba(250, 171, 80, 0.5),
+    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.header_button:not([disabled]):hover {
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+    0.125rem 0.125rem 1rem rgba(255, 172, 48, 0.5);
+}
+
+#parent {
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: "Source Code Pro", monospace;
+  font-size: 28px;
+  width: 480px;
+  text-align: left;
+  margin-top: 120px;
+  margin-left: 60px;
+  font-size: 39px;
+  font-weight: bold;
+  color: #021641;
+}
+
+#border {
+  border-bottom: solid 3px rgba(0, 255, 0, 0.75);
+  position: absolute;
+}
+
+/* Animation */
+#parent {
+  animation: animated-text 2s steps(30, end) 1s 1 normal both;
+}
+
+#border {
+  animation: animated-cursor 600ms steps(30, end) infinite;
+}
+
+/* text animation */
+
+@keyframes animated-text {
+  from {
+    width: 0;
+  }
+  to {
     width: 480px;
-    text-align: left;
-    /* margin-top: 120px;
-    margin-left: 60px; */
-    font-size: 39px;
-    font-weight: bold;
-    color: #021641;
   }
-  
-  #border {
-    border-bottom: solid 3px rgba(0,255,0,.75);
-    position: absolute;
+}
 
+/* cursor animations */
+
+@keyframes animated-cursor {
+  from {
+    border-bottom-color: rgba(0, 255, 0, 0.75);
   }
-  
-  /* Animation */
-  #parent {
-    animation: animated-text 2s steps(30,end) 1s 1 normal both
+  to {
+    border-bottom-color: transparent;
   }
-  
-  #border {
-     animation: animated-cursor 600ms steps(30,end) infinite;
-  }
-  
-  /* text animation */
-  
-  @keyframes animated-text{
-    from{width: 0;}
-    to{width: 480px;
-    }
-  }
-  
-  /* cursor animations */
-  
-  @keyframes animated-cursor{
-    from{border-bottom-color: rgba(0,255,0,.75);}
-    to{border-bottom-color: transparent;}
-  }
+}

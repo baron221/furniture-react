@@ -9,7 +9,7 @@ export function Features() {
         <Stack
           flexDirection={"row"}
           justifyContent={"space-around"}
-          marginTop={"30px"}
+          marginTop={"60px"}
         >
           <Fade direction="left">
             <Box >

@@ -7,7 +7,7 @@ export function Category(props: any) {
   return (
     <div className="category_frame">
       <Container maxWidth="xl">
-      <Fade direction="up" triggerOnce={true} cascade damping={3}>
+      <Fade direction="up" triggerOnce={true} >
         <Stack className="category_section" flexDirection={"row"}>
           <Box className="living_room">
             Living Room
