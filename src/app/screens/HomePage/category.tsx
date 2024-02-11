@@ -1,11 +1,13 @@
 import { Box, Container, Stack } from "@mui/material";
 import React from "react";
+import { Fade } from "react-awesome-reveal";
 import { Link, NavLink } from "react-router-dom";
 
 export function Category(props: any) {
   return (
     <div className="category_frame">
       <Container maxWidth="xl">
+      <Fade direction="up" triggerOnce={true} cascade damping={3}>
         <Stack className="category_section" flexDirection={"row"}>
           <Box className="living_room">
             Living Room
@@ -41,7 +43,9 @@ export function Category(props: any) {
                 </Link>
               </Box>
             </Box>
+
         </Stack>
+            </Fade>
       </Container>
     </div>
   );
