@@ -5,9 +5,8 @@ import "../css/footer.css";
 import "../css/home.css";
 
 
-import { Box, Container, Stack, Typography } from "@mui/material";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { ContactPage } from "./screens/ContactPage";
+import { CommunityPage } from "./screens/CommunityPage";
 import { ShopPage } from "./screens/ShopPage";
 import { ProductPage } from "./screens/ProductPage";
 import { HomePage } from "./screens/HomePage";
@@ -15,6 +14,7 @@ import { NavbarHome } from "./components/Header";
 import { NavbarShop } from "./components/Header/shop";
 import { NavbarOthers } from "./components/Header/others";
 import { Footer } from "./components/footer";
+import { LoginPage } from "./screens/LoginPage";
 
 function App() {
   const [ path, setPath] = useState();
@@ -30,14 +30,11 @@ function App() {
 )}
     
       <Switch>
-      <Route path="/login">
-          <ContactPage />
+      <Route path="/account">
+          <LoginPage />
         </Route>
       <Route path="/community">
-          <ContactPage />
-        </Route>
-        <Route path="/contact">
-          <ContactPage />
+          <CommunityPage />
         </Route>
         <Route path="/shop">
           <ShopPage />

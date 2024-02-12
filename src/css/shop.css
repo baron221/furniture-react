@@ -1,0 +1,217 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
+
+.shop_page {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background: aliceblue;
+    font-family: "Space Grotesk", sans-serif;
+
+  }
+  
+  .shop_page .all_shop .file_search_box {
+    position: relative;
+    width: 100%;
+    height: 33px;
+    margin-top: 50px;
+    font-family: "Space Grotesk", sans-serif;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .shop_page .all_shop .file_box {
+    position: relative;
+    width: 420px;
+    height: 45px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .shop_page .all_shop .file_box a {
+    position: relative;
+    display: flex;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 25px;
+    color: #ffffff;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+  }
+  
+
+  
+  .shop_page .all_shop .file_box a::before,
+  .file_box a ::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    left: 0;
+  }
+  .shop_page .all_shop .file_box a::before {
+    background-color: #d7b686;
+    height: 2px;
+    bottom: 0;
+    transform-origin: 100% 50%;
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(0.76, 6, 6.24, 1);
+  }
+  
+  .shop_page .all_shop .file_box a::after {
+    content: attr(data-replace);
+    height: 100%;
+    top: 0;
+    transform-origin: 100% 50%;
+    transform: translate3d(200%, 0, 0);
+    transition: transform 0.3s cubic-bezier(0.76, 6, 6.24, 1);
+    color: #d7b686;
+  }
+  
+  .shop_page .all_shop .file_box a:hover::before {
+    transform-origin: 0% 50%;
+    transform: scaleX(1);
+  }
+  
+  .shop_page .all_shop .file_box a:hover::after {
+    transform: translate3d(0, 0, 0);
+  }
+  
+  .shop_page .all_shop .file_box a:hover span {
+    transform: translate3d(-200%, 0, 0);
+  }
+  
+  .shop_page .all_shop .file_box a {
+    text-decoration: none;
+    color: #0969a0;
+    font-weight: 700;
+    vertical-align: top;
+  }
+  
+  .shop_page .all_shop .search_big_box {
+    position: relative;
+    font-family: "Space Grotesk", sans-serif;
+
+    width: 360px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    background: #fffcfc;
+    border: 1px solid #fff none;
+    box-shadow: 0px 4px 4px rgba(240, 204, 204, 0.25);
+    border-radius: 18.5px;
+    box-sizing: border-box;
+  }
+  .shop_page .all_shop .search_form {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "Space Grotesk", sans-serif;
+
+  }
+  .shop_page .all_shop .searchInput {
+    position: relative;
+    width: 245px;
+    height: 29px;
+    margin-left: 10px;
+    display: flex;
+    border: none;
+    border-radius: 10px 0px 0px 10px;
+    font-family: "GT Walsheim Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    font-family: "Space Grotesk", sans-serif;
+
+    line-height: 26px;
+    color: #4f547b;
+  }
+  .shop_page .all_shop .button_search {
+    position: relative;
+    width: 100px;
+    height: 33px;
+    font-family: "Space Grotesk", sans-serif;
+
+    display: flex;
+  
+    border-radius: 18.5px;
+    background-color: #0969a0;
+  }
+  .shop_page .all_shop .all_res_box {
+    position: relative;
+    width: 1305px;
+    height: auto;
+    margin-top: 70px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .shop_page .all_shop .restaurant_box {
+    margin: 13px;
+    padding: 5px;
+    width: 300px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #ededed;
+    border-radius: 8px;
+  }
+  
+  .shop_page .all_shop .restaurant_img {
+    width: 200px;
+    height: 330px;
+  
+    border-radius: 5px;
+    background-size: cover;
+  }
+  
+  .shop_page .all_shop .restaurant_desc {
+    width: 280px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .shop_page .all_shop .restaurant_title_text {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 26px;
+    text-transform: capitalize;
+    color: #140342;
+  }
+  
+  .shop_page .all_shop .restaurant_desc_text {
+    margin-top: 6px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    color: #4f547b;
+  }
+  .shop_page .all_shop .bottom_box {
+    position: relative;
+    width: 100%;
+    height: 168px;
+    margin-top: 100px;
+    font-family: "Space Grotesk", sans-serif;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }

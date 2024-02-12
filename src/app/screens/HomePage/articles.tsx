@@ -1,7 +1,7 @@
 import { Box, Container, Stack } from "@mui/material";
 
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Fade } from "react-awesome-reveal";
 
@@ -13,7 +13,7 @@ export function Articles() {
           <Stack className="title" flexDirection={"row"}>
             <Box fontSize={"40px"}>Articles</Box>
             <Box fontSize={"25px"} className="underline">
-              <NavLink to="/shop">More Articles</NavLink>{" "}
+              <Link to="/community">More Articles</Link>{" "}
               <img src="/iconsfurnis/arrow-right.svg" alt="" />
             </Box>
           </Stack>
@@ -39,7 +39,7 @@ export function Articles() {
                 fontFamily={"Space Grotesk, sans-serif;"}
                 fontWeight={700}
               >
-                <NavLink to="/shop">Read More</NavLink>
+                <Link to="/community">Read More</Link>
                 <img src="/iconsfurnis/arrow-right.svg" alt="" />
               </Box>
             </Stack>
@@ -64,7 +64,7 @@ export function Articles() {
                 fontFamily={"Space Grotesk, sans-serif;"}
                 fontWeight={700}
               >
-                <NavLink to="/shop">Read More</NavLink>
+                <Link to="/community">Read More</Link>
                 <img src="/iconsfurnis/arrow-right.svg" alt="" />
               </Box>
             </Stack>
@@ -89,7 +89,7 @@ export function Articles() {
                 fontFamily={"Space Grotesk, sans-serif;"}
                 fontWeight={700}
               >
-                <NavLink to="/shop">Read More</NavLink>
+                <Link to="/community">Read More</Link>
                 <img src="/iconsfurnis/arrow-right.svg" alt="" />
               </Box>
             </Stack>

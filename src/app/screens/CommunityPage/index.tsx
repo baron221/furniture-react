@@ -1,8 +1,8 @@
 import React from "react";
 import { Container } from "@mui/material";
 
-export function ContactPage(){
+export function CommunityPage(){
     return(
-        <Container>ContactPage</Container>
+        <Container>CommunityPage</Container>
     )
 }

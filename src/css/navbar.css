@@ -11,9 +11,9 @@
 
 .format_shop.home_navbar {
   width: 100%;
-  height: 760px;
+  height: 560px;
   display: flex;
-  background:url("/public/imagesfurnis/ImagePlaceholder.jpeg") ;
+  background:url("/public/imagesfurnis/Paste1.jpg") ;
   background-repeat: no-repeat;
   background-size: cover;
   font-family: "Space Grotesk", sans-serif;

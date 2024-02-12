@@ -1,5 +1,5 @@
 import React from "react";
 
-export function ChosenShop(){
-    return <div>ChosenShop</div>
+export function ChosenShop() {
+  return <div className="chosen_shop">ChosenShop</div>;
 }
