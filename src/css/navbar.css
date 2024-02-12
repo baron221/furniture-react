@@ -98,7 +98,7 @@
 }
 
 
-span {
+.home_navbar span {
   color: rgb(255, 115, 0);
 }
 
@@ -187,3 +187,15 @@ span {
     border-bottom-color: transparent;
   }
 }
+
+
+.home_navbar .center_header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  color: #021641;
+}
+
+.format_shop span{color: rgb(213, 218, 218);}

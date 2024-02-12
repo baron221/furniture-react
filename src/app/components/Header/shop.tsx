@@ -74,6 +74,11 @@ export function NavbarShop(props: any) {
             </Stack>
           </Stack>
         </Stack>
+        <Stack className="center_header">
+          <Box fontSize={'24px'}><span >Home {">"}</span> Shop </Box>
+          <Box fontSize={'64px'} fontWeight={'500'} >Shop Page</Box>
+          <Box fontSize={'20px'} >Let's design the place you always imagined</Box>
+        </Stack>
       </Container>
     </div>
   );
