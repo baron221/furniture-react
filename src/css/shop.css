@@ -218,7 +218,7 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  background: aliceblue;
+  background: rgb(247, 251, 255);
 }
 
 .chosen_shop .avatar_big_box {
@@ -391,18 +391,19 @@
 .chosen_shop .prod_wrapper {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap:wrap;
   height: auto;
   margin-left: 50px;
   margin-top: -90px;
   width: 100%;
+  justify-content: center;
 }
 .chosen_shop .prod_box {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: auto;
-  margin-right: 30px;
+  margin-right: 15px;
   margin-top: 60px;
   width: 273px;
 }
@@ -548,4 +549,140 @@
   font-weight: 400;
   line-height: 26px;
   margin-top: 10px;
+}
+
+/* Chosen Shop end*/
+
+
+/* ChosenProduct start */
+
+ .shop_page .chosen_product_page {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+
+background-color: #f3fdff;}
+
+.restaurant_page .dish_container {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+padding-top: 60px;
+padding-bottom: 60px;
+}
+
+.chosen_product_page .chosen_product_slider {
+  width: 48%;
+  height: 581px;
+}
+
+.chosen_product_page .dish_swiper {
+  --swipper-navigation-color: #fff;
+  --swipper-pagination-color: #fff;
+  height: 1020px;
+  width: 100%;
+}
+
+.chosen_product_page .chosen_product_info_container {
+  padding: 30px 40px;
+  width: 49%;
+  height: 582px;
+  display: flex;
+  background: #f9ffff;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0 , 0.25),
+  inset 0px 4px 4px rgba(0, 0, 0 , 0.25), inset 0px;
+  border-radius: 10px;
+  font-family: "Space Grotesk", sans-serif;
+
+}
+
+.chosen_product_page .chosen_product_info_container .chosen_product_info_box {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.chosen_product_page .chosen_product_info_box .dish_txt {
+  font-family: "Space Grotesk", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 36px;
+  color:#000000;
+  
+}
+
+.chosen_product_page .chosen_product_info_box .resto_name {
+  margin-top: 16px;
+  font-family: "Space Grotesk", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 15px;
+  color: #979797;
+  margin-top: 30px;
+
+} 
+
+.chosen_product_page .chosen_product_info_box .rating_box {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  justify-content: space-between;
+  margin-top: 20px;
+  width: 100%;
+  margin-top: 60px;
+
+}
+.chosen_product_page .rating_box .evaluation_box, .chosen_product_page .rating_box .star_box {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  width: auto;
+}
+.chosen_product_page .chosen_product_info_box .dish_desc_info {
+  color: #000;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  height: 112px;
+  line-height: 22px;
+  margin-bottom: 30px;
+  margin-top: 120px;
+}
+.chosen_product_page .chosen_product_info_box .dish_price_box {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  margin-top: 20px;
+  width: 100%;
+}
+.chosen_product_page .dish_price_box span {
+  color: #1678f8;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px;
+}
+.chosen_product_page .button_box {
+  align-items: center;
+  display: flex;
+  height: auto;
+  justify-content: center;
+  width: 100%;
+}
+.chosen_product_page .button_prod{
+  width: 180px;
+  background: #000000;
+  margin-top: 30px;
 }

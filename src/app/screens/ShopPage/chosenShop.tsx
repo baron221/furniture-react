@@ -106,7 +106,7 @@ export function ChosenShop() {
             </Box>
           </Stack>
 
-          <Stack style={{ width: "100%", display: "flex", minHeight: "600px" }}>
+          <Stack style={{ width: "100%", minHeight: "600px" }}>
             <Stack className="prod_wrapper">
               {product_list.map((ele, index) => {
                 return (
