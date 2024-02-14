@@ -35,6 +35,11 @@ export function NavbarOthers(props:any){
             </NavLink>
           </Box>
           <Box className="hover" onClick={props.setPath}>
+                <NavLink to="/orders" activeClassName="underline">
+                  Orders
+                </NavLink>
+              </Box>
+          <Box className="hover" onClick={props.setPath}>
             <NavLink to="/contact" activeClassName="underline">
               Contact Us
             </NavLink>
