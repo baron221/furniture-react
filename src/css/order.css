@@ -1,11 +1,18 @@
 .order_page{
     width: 100%;
     height: auto;
-    background: aliceblue;
+    background: url('/public/imagesfurnis/background1.jpg') ;
+
+
+    background-size: cover;
+    background-repeat: no-repeat;
     display: flex;
     font-family: "Space Grotesk", sans-serif;
 
 }
+
+
+
 .order_page .order_left {
     height: auto;
     width: 80%;
@@ -17,6 +24,7 @@
     height: 60px;
     justify-content: center;
     width: 100%;
+    font-family: "Space Grotesk, sans-serif;" 
 }
 .order_page .order_main_content {
     height: auto;

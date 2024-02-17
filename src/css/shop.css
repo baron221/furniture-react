@@ -1,11 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap");
 
 .shop_page {
   position: relative;
   width: 100%;
   height: auto;
-  background: aliceblue;
+  background: url('/public/imagesfurnis/background1.jpg') ;
+  background-size:cover;
+  background-repeat: no-repeat;
   font-family: "Space Grotesk", sans-serif;
 }
 

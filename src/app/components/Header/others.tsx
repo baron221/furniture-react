@@ -39,11 +39,11 @@ export function NavbarOthers(props:any){
                   Orders
                 </NavLink>
               </Box>
-          <Box className="hover" onClick={props.setPath}>
-            <NavLink to="/contact" activeClassName="underline">
-              Contact Us
-            </NavLink>
-          </Box>
+              <Box className="hover" onClick={props.setPath}>
+                <NavLink to="/community" activeClassName="underline">
+                  Community
+                </NavLink>
+              </Box>
           <Stack
             display={"flex"}
             flexDirection={"row"}

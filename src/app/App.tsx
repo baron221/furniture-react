@@ -5,6 +5,8 @@ import "../css/footer.css";
 import "../css/home.css";
 
 
+
+
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { CommunityPage } from "./screens/CommunityPage";
 import { ShopPage } from "./screens/ShopPage";
