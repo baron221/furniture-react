@@ -199,7 +199,7 @@ Write Article                        </Button>
                     component={() => (
                       <div className={`menu_box`} onClick={() => setValue("2")}>
                         <img src="/icons/follower.svg" alt="" />
-                        <span>Follower</span>
+                        <span>Followers</span>
                       </div>
                     )}
                   />
