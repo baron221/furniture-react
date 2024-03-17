@@ -78,6 +78,10 @@ export function NavbarOthers(props:any){
           </Stack>
         </Stack>
       </Stack>
+      <Stack className="center_header">
+          <Box fontSize={'64px'} fontWeight={'500'} >Furnis</Box>
+          <Box fontSize={'20px'} >Let's design the place you always imagined</Box>
+        </Stack>
     </Container>
   </div>)
 }
