@@ -18,6 +18,7 @@ import { NavbarOthers } from "./components/Header/others";
 import { Footer } from "./components/footer";
 import { LoginPage } from "./screens/LoginPage";
 import { OrdersPage } from "./screens/OrdersPage";
+import AuthenticationModal from "./components/auth";
 
 function App() {
   const [ path, setPath] = useState();
@@ -53,6 +54,7 @@ function App() {
         </Route>
       </Switch>
       <Footer/>
+      <AuthenticationModal/>
     </Router>
   );
 }

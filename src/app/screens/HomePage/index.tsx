@@ -10,7 +10,7 @@ import { Articles } from "./articles";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import { setPeakMarkets, BestMarkets } from "../../screens/HomePage/slice";
+import { setPeakMarkets,  } from "../../screens/HomePage/slice";
 import {  retrievePeakMarkets } from "../../screens/HomePage/selector";
 import { Market } from "../../../types/user";
 import MarketApiService from "../../apiServices/marketApiServices";
@@ -18,6 +18,7 @@ import MarketApiService from "../../apiServices/marketApiServices";
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
   setPeakMarkets: (data: Market[]) => dispach(setPeakMarkets(data)),
+
 });
 
 /**REDUX SELECTOR */
@@ -36,7 +37,11 @@ export function HomePage() {
   marketService.getPeakMarkets().then(data => {
     setPeakMarkets(data);
 
-  }).catch(err => console.log(err))
+  }).catch(err => console.log(err));
+
+  marketService.getMarkets({page:1,limit:4,order:'mb_point'}).then(data =>{
+
+  }).catch(err => console.log(err));
   }, []);
   return (
     <div className="homepage">

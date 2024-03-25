@@ -16,19 +16,17 @@ const homePageSlice = createSlice({
     setPeakMarkets: (state, action) => {
       state.peakMarkets = action.payload;
     },
-    BestMarkets: (state, action) => {
-      state.bestMarkets = action.payload;
-    },
-    TrendProducts: (state, action) => {
+
+    setTrendProducts: (state, action) => {
       state.trendProducts = action.payload;
     },
-    bestboArticles: (state, action) => {
+    setbestboArticles: (state, action) => {
       state.bestBoArticles = action.payload;
     },
-    newsBoArticle: (state, action) => {
+    setNewsBoArticle: (state, action) => {
       state.newsBoArticle = action.payload;
     },
-    trendBoArticles: (state, action) => {
+    setTrendBoArticles: (state, action) => {
       state.trendBoArticles = action.payload;
     },
   },
@@ -36,11 +34,10 @@ const homePageSlice = createSlice({
 
 export const {
   setPeakMarkets,
-  BestMarkets,
-  TrendProducts,
-  bestboArticles,
-  newsBoArticle,
-  trendBoArticles,
+  setTrendProducts,
+  setbestboArticles,
+  setNewsBoArticle,
+  setTrendBoArticles,
 } = homePageSlice.actions;
 
 const homePageReducer = homePageSlice.reducer;
