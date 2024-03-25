@@ -13,6 +13,7 @@ import { createSelector } from "reselect";
 import { setPeakMarkets, BestMarkets } from "../../screens/HomePage/slice";
 import {  retrievePeakMarkets } from "../../screens/HomePage/selector";
 import { Market } from "../../../types/user";
+import MarketApiService from "../../apiServices/marketApiServices";
 
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
@@ -29,11 +30,13 @@ const PeakMarketsRetriever = createSelector(
 export function HomePage() {
   /**INITIALIZATION*/
   const { setPeakMarkets } = actionDispatch(useDispatch());
-  const { PeakMarkets } = useSelector(PeakMarketsRetriever);
 
   useEffect(() => {
-  
-    setPeakMarkets([]);
+  const marketService = new MarketApiService();
+  marketService.getPeakMarkets().then(data => {
+    setPeakMarkets(data);
+
+  }).catch(err => console.log(err))
   }, []);
   return (
     <div className="homepage">
