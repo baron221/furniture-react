@@ -63,7 +63,7 @@ export default function AuthenticationModal(props: any) {
       };
 
       const memberApiService = new MemberApiService;
-      await memberApiService.signupRequest(signup_data);
+    //   await memberApiService.signupRequest(signup_data);
 
       props.handleSignUpClose();
       window.location.reload();

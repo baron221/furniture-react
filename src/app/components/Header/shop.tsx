@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import { Badge, Box, Container, IconButton, Stack } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
@@ -60,10 +61,12 @@ export function NavbarShop(props: any) {
                 onClick={props.setPath}
               >
                 <NavLink to="/account">
-                  <img src="/iconsfurnis/usercircle.svg" alt="" />
+                <Button onClick={props.handleLoginOpen}>
+                    <img src="/iconsfurnis/usercircle.svg" alt="" />
+                  </Button>
                 </NavLink>
               </IconButton>
-              <Box>
+              
                 <IconButton
                   aria-label="cart"
                   id="basic-button"
@@ -75,7 +78,7 @@ export function NavbarShop(props: any) {
                     <img src="/iconsfurnis/shoppingbag.svg" alt="" />
                   </Badge>
                 </IconButton>
-              </Box>
+          
             </Stack>
           </Stack>
         </Stack>

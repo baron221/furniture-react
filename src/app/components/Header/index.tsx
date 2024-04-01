@@ -27,7 +27,7 @@ export function NavbarHome(props: any) {
           <Stack
             flexDirection={"row"}
             className="navbar_container"
-            justifyContent={"space-between"}
+            justifyContent={"space-evenly"}
           >
             <Box>
               <img src="/imagesfurnis/Logo.svg" alt="" />
@@ -35,6 +35,7 @@ export function NavbarHome(props: any) {
             <Stack
               flexDirection={"row"}
               alignItems={"center"}
+              justifyContent={'space-between'}
               className="navbar_links"
             >
               <Box className="hover" onClick={props.setPath}>
@@ -77,11 +78,12 @@ export function NavbarHome(props: any) {
                   aria-expanded={undefined}
                   onClick={props.setPath}
                 >
-                  <NavLink to="/account">
+                  <Box>
+                  <Button onClick={props.handleLoginOpen}>
                     <img src="/iconsfurnis/usercircle.svg" alt="" />
-                  </NavLink>
+                  </Button>
+                </Box>
                 </IconButton>
-                <Box>
                   <IconButton
                     aria-label="cart"
                     id="basic-button"
@@ -93,7 +95,19 @@ export function NavbarHome(props: any) {
                       <img src="/iconsfurnis/shoppingbag.svg" alt="" />
                     </Badge>
                   </IconButton>
-                </Box>
+                <IconButton
+                  aria-label="cart"
+                  id="basic-button"
+                  aria-controls={undefined}
+                  aria-haspopup="true"
+                  aria-expanded={undefined}
+                  onClick={props.setPath}
+                >
+                  <NavLink to="/">
+                    <Button 
+                    onClick={props.handleSignUpOpen}>     <img width={'60px'} src="/iconsfurnis/sign-up.png" alt="" /></Button>
+                  </NavLink>
+                </IconButton>
               </Stack>
             </Stack>
           </Stack>
@@ -109,19 +123,8 @@ export function NavbarHome(props: any) {
               
             >
               <SwiperSlide className="slide1">
-              <Box>
-              
-                  <div id="parent" className="header_main">
-                    Transform your <br /> space with <span>timeless</span>{" "}
-                    <br />
-                    elegance and <br />
-                    <span> exquisite</span> comfort. <div id="border"></div>
-                  </div>
-                
-              </Box>
-              <Box>
-                <button className="header_button"> Shop Now</button>
-              </Box>
+         
+         
               </SwiperSlide>
               <SwiperSlide className="slide2"></SwiperSlide>
               <SwiperSlide className="slide3"></SwiperSlide>

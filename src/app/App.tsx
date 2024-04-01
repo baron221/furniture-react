@@ -4,9 +4,6 @@ import "../css/navbar.css";
 import "../css/footer.css";
 import "../css/home.css";
 
-
-
-
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { CommunityPage } from "./screens/CommunityPage";
 import { ShopPage } from "./screens/ShopPage";
@@ -21,23 +18,53 @@ import { OrdersPage } from "./screens/OrdersPage";
 import AuthenticationModal from "./components/auth";
 
 function App() {
-  const [ path, setPath] = useState();
+  /** INITIALIZATION **/
+  const [path, setPath] = useState();
   const main_path = window.location.pathname;
+  const [signUpOpen, setSignUpOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+
+  /**HANDLERS */
+
+  const handleSignUpOpen = () => {
+    setSignUpOpen(true);
+  };
+
+  const handleSignUpClose = () => {
+    setSignUpOpen(false);
+  };
+
+  const handleLoginOpen = () => {
+    setLoginOpen(true);
+  };
+
+  const handleLoginClose = () => {
+    setLoginOpen(false);
+  };
+
   return (
     <Router>
       {main_path == "/" ? (
-          <NavbarHome setPath={setPath}   />
+        <NavbarHome
+          setPath={setPath}
+          handleLoginOpen={handleLoginOpen}
+          handleSignUpOpen={handleSignUpOpen}
+        />
       ) : main_path.includes("/shop") ? (
-        <NavbarShop setPath={setPath} />
+        <NavbarShop setPath={setPath} 
+        handleLoginOpen={handleLoginOpen}
+        handleSignUpOpen={handleSignUpOpen}/>
       ) : (
-        <NavbarOthers setPath={setPath}  />
-)}
-    
+        <NavbarOthers setPath={setPath} 
+        handleLoginOpen={handleLoginOpen}
+        handleSignUpOpen={handleSignUpOpen}/>
+      )}
+
       <Switch>
-      <Route path="/account">
+        <Route path="/account">
           <LoginPage />
         </Route>
-      <Route path="/community">
+        <Route path="/community">
           <CommunityPage />
         </Route>
         <Route path="/orders">
@@ -53,8 +80,15 @@ function App() {
           <HomePage />
         </Route>
       </Switch>
-      <Footer/>
-      <AuthenticationModal/>
+      <Footer />
+      <AuthenticationModal
+        loginOpen={loginOpen}
+        signUpOpen={signUpOpen}
+        handleLoginOpen={handleLoginOpen}
+        handleLoginClose={handleLoginClose}
+        handleSignUpOpen={handleSignUpOpen}
+        handleSignUpClose={handleSignUpClose}
+      />
     </Router>
   );
 }
