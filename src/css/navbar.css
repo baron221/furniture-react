@@ -46,10 +46,11 @@ justify-content: space-between;
 }
 .home_navbar .navbar_links {
   display: flex;
-  justify-content: space-around;
+justify-content: space-evenly;
+flex-direction: row;
   width: 752px;
   height: 46px;
-  padding-left: 160px;
+  
 
 }
 
@@ -82,7 +83,8 @@ justify-content: space-between;
 }
 
 .hover{
-  margin-right: 20px;
+  margin-right: 10px;
+  
 }
 .mySwiper {
   width: 100%;
