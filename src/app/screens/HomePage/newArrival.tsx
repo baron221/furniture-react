@@ -61,7 +61,6 @@ export function NewArrival() {
     } catch (err: any) {
       console.log("targetLiketop,ERROR", err);
       sweetErrorHandling(err).then();
-      throw err;
     }
   };
   return (

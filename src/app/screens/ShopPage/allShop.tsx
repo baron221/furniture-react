@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Favorite } from "@mui/icons-material";
 import { Box, Button, Container, Stack } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
@@ -15,15 +15,41 @@ import {
   Link,
   Typography,
 } from "@mui/joy";
-
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import CallIcon from "@mui/icons-material/Call";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
+
+//REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+import { setTargetShops,  } from "../../screens/ShopPage/slice";
+import { Market } from "../../../types/user";
+import MarketApiService from "../../apiServices/marketApiServices";
+import { retrieveTargetShops } from "../../screens/ShopPage/selector";
+
 const order_list =Array.from(Array(8).keys());
 
+/**REDUX SLICE */
+const actionDispatch = (dispach: Dispatch) => ({
+  setTargetShops: (data: Market[]) => dispach(setTargetShops(data)),
 
+});
+/**REDUX SELECTOR */
+const targetShopRetriever = createSelector(
+  retrieveTargetShops,
+  (targetShops) => ({
+    targetShops
+  })
+)
 export function AllShop() {
+  /**INITIALIZATIONS */
+  const {setTargetShops} = actionDispatch(useDispatch());
+  const {targetShops} = useSelector(targetShopRetriever);
+
+  useEffect(()=>{},[])
+
   return (
     <div className="all_shop">
       <Container>

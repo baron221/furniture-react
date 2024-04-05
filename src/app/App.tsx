@@ -86,7 +86,7 @@ function App() {
 
   return (
     <Router>
-      {main_path == "/" ? (
+      {main_path == "/" ? 
         <NavbarHome
           setPath={setPath}
           handleLoginOpen={handleLoginOpen}
@@ -98,7 +98,7 @@ function App() {
           anchorEl={anchorEl}
           open={open}
         />
-      ) : main_path.includes("/shop") ? (
+       : main_path.includes("/shop") ? 
         <NavbarShop
           setPath={setPath}
           handleLoginOpen={handleLoginOpen}
@@ -111,7 +111,7 @@ function App() {
           anchorEl={anchorEl}
           open={open}
         />
-      ) : (
+       : 
         <NavbarOthers
           setPath={setPath}
           handleLoginOpen={handleLoginOpen}
@@ -124,7 +124,7 @@ function App() {
           anchorEl={anchorEl}
           open={open}
         />
-      )}
+      }
 
       <Switch>
         <Route path="/account">
