@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Favorite } from "@mui/icons-material";
 import { Box, Button, Container, Stack } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
@@ -29,6 +29,10 @@ import MarketApiService from "../../apiServices/marketApiServices";
 import { retrieveTargetShops } from "../../screens/ShopPage/selector";
 import { SearchObj } from "../../../types/others";
 import { serviceApi } from "../../../lib/config";
+import { Definer } from "../../../lib/Definer";
+import assert from "assert";
+import MemberApiService from "../../apiServices/memberApiServices";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
 
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
@@ -58,12 +62,40 @@ export function AllShop() {
       .then((data) => setTargetShops(data))
       .catch((err) => console.log(err));
   }, [targetSearchObj]);
+  const refs: any = useRef([]);
 
   /**HANDLERS */
   const searchHandler = (category: string) => {
     targetSearchObj.page = 1;
     targetSearchObj.order = category;
     setTargetSearchObj({ ...targetSearchObj });
+  };
+  const handlePaginationChange = (event: any, value: number) => {
+    targetSearchObj.page = value;
+    setTargetSearchObj({ ...targetSearchObj });
+  };
+
+  const targetLikeHandler = async (e: any, id: string) => {
+    try {
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      const memberApiService = new MemberApiService();
+      const like_result: any = await memberApiService.memberLikeTarget({
+        like_ref_id: id,
+        group_type: "member",
+      });
+      assert.ok(like_result, Definer.general_err2);
+
+      if (like_result.like_status > 0) {
+        e.target.style.fill = "red";
+        refs.current[like_result.like_ref_id].innerHTML++;
+      } else {
+        e.target.style.fill = "white";
+        refs.current[like_result.like_ref_id].innerHTML--;
+      }
+    } catch (err: any) {
+      console.log("targetLiketop,ERROR", err);
+      sweetErrorHandling(err).then();
+    }
   };
 
   return (
@@ -132,9 +164,12 @@ export function AllShop() {
                         }}
                       >
                         <Favorite
-                          /*@ts-ignore*/
+                          onClick={(e) => targetLikeHandler(e, ele._id)}
                           style={{
-                            fill: "white",
+                            fill:
+                              ele?.me_liked && ele?.me_liked[0]?.my_favorite
+                                ? "red"
+                                : "white",
                           }}
                         />
                       </IconButton>
@@ -197,8 +232,12 @@ export function AllShop() {
                           display: "flex",
                         }}
                       >
+                        <div
+                          ref={(element) => (refs.current[ele._id] = element)}
+                        >
+                          {ele.mb_likes}
+                        </div>{" "}
                         <Favorite sx={{ fontSize: 20, marginLeft: "2px" }} />{" "}
-                        {ele.mb_likes}
                       </Typography>
                     </CardOverflow>
                   </Card>
@@ -208,8 +247,8 @@ export function AllShop() {
           </Stack>
           <Stack className="bottom_box">
             <Pagination
-              count={3}
-              page={1}
+              count={targetSearchObj.page >= 3 ? targetSearchObj.page + 1 : 3}
+              page={targetSearchObj.page}
               renderItem={(item) => (
                 <PaginationItem
                   components={{
@@ -220,6 +259,7 @@ export function AllShop() {
                   color="secondary"
                 />
               )}
+              onChange={handlePaginationChange}
             />
           </Stack>
         </Stack>

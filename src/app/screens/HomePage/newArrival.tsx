@@ -144,12 +144,7 @@ export function NewArrival() {
                           }}
                         />
 
-                        {/* // onClick={(e) => targetLikeTop(e, ele._id)}
-                              style={{
-                              //   fill: ele?.me_liked && ele?.me_liked[0]?.my_favorite
-                              //     ? "red"
-                              //     : "white"
-                              // }}  */}
+  
                       </IconButton>
 
                       <Typography
