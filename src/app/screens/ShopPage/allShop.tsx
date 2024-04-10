@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Favorite } from "@mui/icons-material";
 import { Box, Button, Container, Stack } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
@@ -19,36 +19,52 @@ import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import CallIcon from "@mui/icons-material/Call";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
-
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import { setTargetShops,  } from "../../screens/ShopPage/slice";
+import { setTargetShops } from "../../screens/ShopPage/slice";
 import { Market } from "../../../types/user";
 import MarketApiService from "../../apiServices/marketApiServices";
 import { retrieveTargetShops } from "../../screens/ShopPage/selector";
-
-const order_list =Array.from(Array(8).keys());
+import { SearchObj } from "../../../types/others";
+import { serviceApi } from "../../../lib/config";
 
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
   setTargetShops: (data: Market[]) => dispach(setTargetShops(data)),
-
 });
 /**REDUX SELECTOR */
 const targetShopRetriever = createSelector(
   retrieveTargetShops,
   (targetShops) => ({
-    targetShops
+    targetShops,
   })
-)
+);
 export function AllShop() {
   /**INITIALIZATIONS */
-  const {setTargetShops} = actionDispatch(useDispatch());
-  const {targetShops} = useSelector(targetShopRetriever);
+  const { setTargetShops } = actionDispatch(useDispatch());
+  const { targetShops } = useSelector(targetShopRetriever);
+  const [targetSearchObj, setTargetSearchObj] = useState<SearchObj>({
+    page: 1,
+    limit: 8,
+    order: "mb_point",
+  });
 
-  useEffect(()=>{},[])
+  useEffect(() => {
+    const shopService = new MarketApiService();
+    shopService
+      .getMarkets(targetSearchObj)
+      .then((data) => setTargetShops(data))
+      .catch((err) => console.log(err));
+  }, [targetSearchObj]);
+
+  /**HANDLERS */
+  const searchHandler = (category: string) => {
+    targetSearchObj.page = 1;
+    targetSearchObj.order = category;
+    setTargetSearchObj({ ...targetSearchObj });
+  };
 
   return (
     <div className="all_shop">
@@ -56,8 +72,9 @@ export function AllShop() {
         <Stack flexDirection={"column"} alignItems={"center"}>
           <Box className="file_search_box">
             <Box className="file_box" style={{ cursor: "pointer" }}>
-              <a>Best</a>
-              <a>Famous</a>
+              <a onClick={() => searchHandler("mb_point")}>Best</a>
+              <a onClick={() => searchHandler("mb_views")}>Famous</a>
+              <a onClick={() => searchHandler("createdAt")}>New</a>
             </Box>
             <Box className="search_big_box">
               <form action="" method="" className="search_form">
@@ -79,119 +96,120 @@ export function AllShop() {
           </Box>
           <Stack className="all_res_box">
             <CssVarsProvider>
-               { order_list.map(ele =>{
-                return(
-                    <Card
-                variant="outlined"
-                sx={{
-                  minHeight: 410,
-                  minWidth: 290,
-                  mx: "17px",
-                  my: "20px",
-                  cursor: "pointer",
-                }}
-              >
-                <CardOverflow>
-                  <AspectRatio ratio={"1"}>
-                    <img src="/imagesfurnis/ikea.png" />
-                  </AspectRatio>
-                  <IconButton
-                    aria-label="Like miniaml photography"
-                    size="md"
-                    variant="solid"
-                    color="neutral"
+              {targetShops.map((ele: Market) => {
+                const image_path = `${serviceApi}/${ele.mb_image}`;
+                return (
+                  <Card
+                    variant="outlined"
                     sx={{
-                      position: "absolute",
-                      zIndex: 2,
-                      borderRadius: "50%",
-                      right: "1rem",
-                      bottom: 0,
-                      transform: "translateY(50%)",
-                      color: "rgba(0,0,0,.4)",
+                      minHeight: 410,
+                      minWidth: 290,
+                      mx: "17px",
+                      my: "20px",
+                      cursor: "pointer",
                     }}
                   >
-                    <Favorite
-                      style={{
-                        fill: "white",
+                    <CardOverflow>
+                      <AspectRatio ratio={"1"}>
+                        <img src={image_path} />
+                      </AspectRatio>
+                      <IconButton
+                        aria-label="Like miniaml photography"
+                        size="md"
+                        variant="solid"
+                        color="neutral"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                        sx={{
+                          position: "absolute",
+                          zIndex: 2,
+                          borderRadius: "50%",
+                          right: "1rem",
+                          bottom: 0,
+                          transform: "translateY(50%)",
+                          color: "rgba(0,0,0,.4)",
+                        }}
+                      >
+                        <Favorite
+                          /*@ts-ignore*/
+                          style={{
+                            fill: "white",
+                          }}
+                        />
+                      </IconButton>
+                    </CardOverflow>
+                    <Typography level="h3" sx={{ fontSize: "35px", mt: 1 }}>
+                      {ele.mb_nick}
+                    </Typography>
+                    <Typography level="h4" sx={{ mt: 0.5, mb: 2 }}>
+                      <Link
+                        href=""
+                        startDecorator={<LocationOnRoundedIcon />}
+                        textColor="neutral.700"
+                      >
+                        {ele.mb_address}Busan
+                      </Link>
+                    </Typography>
+                    <Typography level="h4" sx={{ mt: 0.5, mb: 2 }}>
+                      <Link
+                        startDecorator={<CallIcon />}
+                        textColor="neutral.700"
+                      >
+                        {ele.mb_phone}
+                      </Link>
+                    </Typography>
+                    <CardOverflow
+                      variant="soft"
+                      sx={{
+                        display: "flex",
+
+                        fontFamily: '"Space Grotesk", sans-serif;"',
+                        gap: 1.5,
+                        py: 1.5,
+                        px: "var(--Card-padding)",
+                        borderTop: "1px solid",
+                        borderColor: "neutral.outlinedBorder",
+                        bgcolor: "background.level1",
                       }}
-                    />
-                  </IconButton>
-                </CardOverflow>
-                <Typography level="h3" sx={{ fontSize: "35px", mt: 1 }}>
-                  IKEA
-                </Typography>
-                <Typography level="h4" sx={{ mt: 0.5, mb: 2 }}>
-                  <Link
-                    href=""
-                    startDecorator={<LocationOnRoundedIcon />}
-                    textColor="neutral.700"
-                  >
-                    {" "}
-                    Busan
-                  </Link>
-                </Typography>
-                <Typography level="h4" sx={{ mt: 0.5, mb: 2 }}>
-                  <Link startDecorator={<CallIcon />} textColor="neutral.700">
-                    {" "}
-                    01058606500
-                  </Link>
-                </Typography>
-                <CardOverflow
-    
-                  variant="soft"
-                  sx={{
-                    display: "flex",
-                    
-                    fontFamily:'"Space Grotesk", sans-serif;"',
-                    gap: 1.5,
-                    py: 1.5,
-                    px: "var(--Card-padding)",
-                    borderTop: "1px solid",
-                    borderColor: "neutral.outlinedBorder",
-                    bgcolor: "background.level1",
-                    
-                    
-                  }}
-                >
-                  <Typography
-                    level="h4"
-                    sx={{
-                      fontWeight: "13px",
-                      color: "text.secondary",
-                      alignItems: "center",
-                      display: "flex",
-                    }}
-                  >
-                    <VisibilityIcon
-                      sx={{ fontSize: 20, marginLeft: "5px" }}
-                    />{" "}
-                    <div>100</div>
-                  </Typography>
-                  <Box sx={{ width: 2, bgcolor: "divider" }} />
-                  <Typography
-                  level="h4"
-                    sx={{
-                      fontWeight: "md",
-                      color: "neutral.700",
-                      alignItems: "center",
-                      display: "flex",
-                    }}
-                  >
-                    <Favorite sx={{ fontSize: 20, marginLeft: "2px" }} /> <div>50</div>
-                  </Typography>
-                </CardOverflow>
-              </Card>
-
-                )
-
-               })}
-              
+                    >
+                      <Typography
+                        level="h4"
+                        sx={{
+                          fontWeight: "13px",
+                          color: "text.secondary",
+                          alignItems: "center",
+                          display: "flex",
+                        }}
+                      >
+                        <VisibilityIcon
+                          sx={{ fontSize: 20, marginLeft: "5px" }}
+                        />
+                        {ele.mb_views}
+                      </Typography>
+                      <Box sx={{ width: 2, bgcolor: "divider" }} />
+                      <Typography
+                        level="h4"
+                        sx={{
+                          fontWeight: "md",
+                          color: "neutral.700",
+                          alignItems: "center",
+                          display: "flex",
+                        }}
+                      >
+                        <Favorite sx={{ fontSize: 20, marginLeft: "2px" }} />{" "}
+                        {ele.mb_likes}
+                      </Typography>
+                    </CardOverflow>
+                  </Card>
+                );
+              })}
             </CssVarsProvider>
           </Stack>
           <Stack className="bottom_box">
             <Pagination
-             count={3}
-             page={1}
+              count={3}
+              page={1}
               renderItem={(item) => (
                 <PaginationItem
                   components={{
