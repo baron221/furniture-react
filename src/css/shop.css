@@ -307,12 +307,14 @@
   height: 147px;
   justify-content: center;
   width: 10%;
+  cursor: pointer;
 }
 .chosen_shop .swiper-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .chosen_shop .shop_avatars_wrapper {
   align-items: center;
   display: flex;
@@ -330,11 +332,14 @@
   height: 100%;
   justify-content: center;
   width: 108px;
+  cursor: pointer;
+
 }
 .chosen_shop .shop_avatars img {
   border-radius: 50%;
   height: 108px;
   width: 108px;
+  cursor: pointer;
 }
 .chosen_shop .shop_avatars span {
   color: #06266d;

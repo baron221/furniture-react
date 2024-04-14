@@ -38,6 +38,8 @@ import {
 } from "../../../lib/sweetAlert";
 import { Product } from "../../../types/product";
 import ProductApiService from "../../apiServices/productApiService";
+import { useHistory } from "react-router-dom";
+
 
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
@@ -68,8 +70,10 @@ const targetProductsRetriever = createSelector(
   })
 );
 
+
 export function ChosenShop() {
   /**INITIALIZATIONS */
+  const history = useHistory();
   let { shop_id } = useParams<{ shop_id: string }>();
   const { setRandomShops, setChosenShops, setTargetProducts } = actionDispatch(
     useDispatch()
@@ -88,12 +92,27 @@ export function ChosenShop() {
     });
 
   useEffect(() => {
+    const shopService = new MarketApiService();
+    shopService
+      .getMarkets({ page: 1, limit: 10, order: "random" })
+      .then((data) => setRandomShops(data))
+      .catch((err) => console.log(err));
+
     const productService = new ProductApiService();
     productService
       .getTargetProducts(targetProductSearchObj)
       .then((data) => setTargetProducts(data))
       .catch((err) => console.log(err));
   }, [targetProductSearchObj]);
+
+  /**HANDLERS */
+const chosenShopHandler = (id:string) =>{
+  setChosenShopId(id);
+  targetProductSearchObj.market_mb_id = id;
+  setTargetProductSearchObj({ ...targetProductSearchObj})
+  history.push(`/shop/${id}`)
+}
+
   return (
     <div className="chosen_shop">
       <Container>
@@ -142,18 +161,20 @@ export function ChosenShop() {
                 prevEl: ".restaurant-prev",
               }}
             >
-              {/* {shop_list.map((ele, order) => {
-                return (
+              {randomShops.map((ele:Market) => {
+               const image_path = `${serviceApi}/${ele.mb_image}`
+               return (
                   <SwiperSlide
-                    onClick={() => {}}
+                    onClick={() => chosenShopHandler(ele._id)}
+                    key={ele._id}
                     style={{ cursor: "pointer" }}
                     className="shop_avatars"
                   >
-                    <img src="/imagesfurnis/ikea.png" />
-                    <span>Ikea</span>
+                    <img src={image_path} />
+                    <span>{ele.mb_nick}</span>
                   </SwiperSlide>
                 );
-              })} */}
+              })}
             </Swiper>
             <Box
               className="next_btn restaurant-next"
@@ -199,7 +220,6 @@ export function ChosenShop() {
                       className="prod_img"
                       sx={{
                         backgroundImage: `url(${image_path})`,
-                        
                       }}
                     >
                       <Button
@@ -235,7 +255,10 @@ export function ChosenShop() {
                         className="like_view_btn"
                         style={{ right: "36px" }}
                       >
-                        <Badge badgeContent={product.product_views} color="primary">
+                        <Badge
+                          badgeContent={product.product_views}
+                          color="primary"
+                        >
                           <Checkbox
                             icon={
                               <RemoveRedEyeIcon style={{ color: "white" }} />
@@ -245,7 +268,9 @@ export function ChosenShop() {
                       </Button>
                     </Box>
                     <Box className="prod_desc">
-                      <span className="prod_title_text">{product.product_name}</span>
+                      <span className="prod_title_text">
+                        {product.product_name}
+                      </span>
                       <div className="prod_desc_text">
                         <MonetizationOnIcon /> {product.product_price}
                       </div>
