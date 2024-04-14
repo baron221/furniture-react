@@ -10,10 +10,90 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import StarIcon from "@mui/icons-material/Star";
 import { useParams } from "react-router-dom";
 
-const shop_list = Array.from(Array(10).keys());
-const product_list = Array.from(Array(9).keys());
+//REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+import {
+  setChosenProduct,
+  setChosenShops,
+  setRandomShops,
+  setTargetProducts,
+} from "../../screens/ShopPage/slice";
+import { Market } from "../../../types/user";
+import MarketApiService from "../../apiServices/marketApiServices";
+import {
+  retrieveRandomShops,
+  retrieveTargetProducts,
+  retrieveChosenShops,
+} from "../../screens/ShopPage/selector";
+import { ProductSearchObj, SearchObj } from "../../../types/others";
+import { serviceApi } from "../../../lib/config";
+import { Definer } from "../../../lib/Definer";
+import assert from "assert";
+import MemberApiService from "../../apiServices/memberApiServices";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+import { Product } from "../../../types/product";
+import ProductApiService from "../../apiServices/productApiService";
+
+/**REDUX SLICE */
+const actionDispatch = (dispach: Dispatch) => ({
+  setRandomShops: (data: Market[]) => dispach(setRandomShops(data)),
+  setChosenShops: (data: Market[]) => dispach(setChosenShops(data)),
+  setTargetProducts: (data: Product[]) => dispach(setTargetProducts(data)),
+});
+
+/**REDUX SELECTOR */
+const randomShopRetriever = createSelector(
+  retrieveRandomShops,
+  (randomShops) => ({
+    randomShops,
+  })
+);
+
+const chosenShopsRetriever = createSelector(
+  retrieveChosenShops,
+  (chosenShops) => ({
+    chosenShops,
+  })
+);
+
+const targetProductsRetriever = createSelector(
+  retrieveTargetProducts,
+  (targetProducts) => ({
+    targetProducts,
+  })
+);
 
 export function ChosenShop() {
+  /**INITIALIZATIONS */
+  let { shop_id } = useParams<{ shop_id: string }>();
+  const { setRandomShops, setChosenShops, setTargetProducts } = actionDispatch(
+    useDispatch()
+  );
+  const { randomShops } = useSelector(randomShopRetriever);
+  const { chosenShops } = useSelector(chosenShopsRetriever);
+  const { targetProducts } = useSelector(targetProductsRetriever);
+  const [chosenShopId, setChosenShopId] = useState<string>(shop_id);
+  const [targetProductSearchObj, setTargetProductSearchObj] =
+    useState<ProductSearchObj>({
+      page: 1,
+      limit: 8,
+      order: "createdAt",
+      market_mb_id: chosenShopId,
+      product_collection: "LIVINGROOM",
+    });
+
+  useEffect(() => {
+    const productService = new ProductApiService();
+    productService
+      .getTargetProducts(targetProductSearchObj)
+      .then((data) => setTargetProducts(data))
+      .catch((err) => console.log(err));
+  }, [targetProductSearchObj]);
   return (
     <div className="chosen_shop">
       <Container>
@@ -62,7 +142,7 @@ export function ChosenShop() {
                 prevEl: ".restaurant-prev",
               }}
             >
-              {shop_list.map((ele, order) => {
+              {/* {shop_list.map((ele, order) => {
                 return (
                   <SwiperSlide
                     onClick={() => {}}
@@ -73,13 +153,16 @@ export function ChosenShop() {
                     <span>Ikea</span>
                   </SwiperSlide>
                 );
-              })}
+              })} */}
             </Swiper>
             <Box
               className="next_btn restaurant-next"
               style={{ color: "white" }}
             >
-              <ArrowForwardIosIcon sx={{ fontSize: 40 }} style={{ color: "#03296e" }} />
+              <ArrowForwardIosIcon
+                sx={{ fontSize: 40 }}
+                style={{ color: "#03296e" }}
+              />
             </Box>
           </Stack>
 
@@ -108,23 +191,36 @@ export function ChosenShop() {
 
           <Stack style={{ width: "100%", minHeight: "600px" }}>
             <Stack className="prod_wrapper">
-              {product_list.map((ele, index) => {
+              {targetProducts.map((product: Product) => {
+                const image_path = `${serviceApi}/${product.product_images[0]}`;
                 return (
-                  <Box className="prod_box">
+                  <Box className="prod_box" key={product._id}>
                     <Box
                       className="prod_img"
                       sx={{
-                        backgroundImage: `url(/imagesfurnis/shopImages/prod2.jpg)`,
+                        backgroundImage: `url(${image_path})`,
+                        
                       }}
                     >
                       <Button
                         className="like_view_btn"
                         style={{ left: "36px" }}
                       >
-                        <Badge color="primary">
+                        <Badge
+                          badgeContent={product.product_likes}
+                          color="primary"
+                        >
                           <Checkbox
                             icon={<FavoriteBorder style={{ color: "white" }} />}
+                            id={product._id}
                             checkedIcon={<Favorite style={{ color: "red" }} />}
+                            /**ts-ignore */
+                            checked={
+                              product?.me_liked &&
+                              product?.me_liked[0]?.my_favorite
+                                ? true
+                                : false
+                            }
                           />
                         </Badge>
                       </Button>
@@ -139,7 +235,7 @@ export function ChosenShop() {
                         className="like_view_btn"
                         style={{ right: "36px" }}
                       >
-                        <Badge color="primary">
+                        <Badge badgeContent={product.product_views} color="primary">
                           <Checkbox
                             icon={
                               <RemoveRedEyeIcon style={{ color: "white" }} />
@@ -149,9 +245,9 @@ export function ChosenShop() {
                       </Button>
                     </Box>
                     <Box className="prod_desc">
-                      <span className="prod_title_text">Office Chair</span>
+                      <span className="prod_title_text">{product.product_name}</span>
                       <div className="prod_desc_text">
-                        <MonetizationOnIcon /> 25
+                        <MonetizationOnIcon /> {product.product_price}
                       </div>
                     </Box>
                   </Box>
@@ -169,7 +265,7 @@ export function ChosenShop() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            marginBottom:'30px'
+            marginBottom: "30px",
           }}
         >
           <Box className={"category_title"}>Shop Location</Box>

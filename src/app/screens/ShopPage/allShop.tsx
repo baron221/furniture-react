@@ -32,7 +32,8 @@ import { serviceApi } from "../../../lib/config";
 import { Definer } from "../../../lib/Definer";
 import assert from "assert";
 import MemberApiService from "../../apiServices/memberApiServices";
-import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { sweetErrorHandling, sweetTopSmallSuccessAlert } from "../../../lib/sweetAlert";
+import { useHistory } from "react-router-dom";
 
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
@@ -47,6 +48,7 @@ const targetShopRetriever = createSelector(
 );
 export function AllShop() {
   /**INITIALIZATIONS */
+  const history = useHistory();
   const { setTargetShops } = actionDispatch(useDispatch());
   const { targetShops } = useSelector(targetShopRetriever);
   const [targetSearchObj, setTargetSearchObj] = useState<SearchObj>({
@@ -65,6 +67,7 @@ export function AllShop() {
   const refs: any = useRef([]);
 
   /**HANDLERS */
+  const chosenShopHandler = (id:string) => history.push(`/shop/${id}`);
   const searchHandler = (category: string) => {
     targetSearchObj.page = 1;
     targetSearchObj.order = category;
@@ -92,6 +95,7 @@ export function AllShop() {
         e.target.style.fill = "white";
         refs.current[like_result.like_ref_id].innerHTML--;
       }
+      await sweetTopSmallSuccessAlert('success',700,false)
     } catch (err: any) {
       console.log("targetLiketop,ERROR", err);
       sweetErrorHandling(err).then();
@@ -132,6 +136,7 @@ export function AllShop() {
                 const image_path = `${serviceApi}/${ele.mb_image}`;
                 return (
                   <Card
+                  onClick={()=> chosenShopHandler(ele._id)}
                     variant="outlined"
                     sx={{
                       minHeight: 410,

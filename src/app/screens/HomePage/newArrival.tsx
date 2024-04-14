@@ -19,7 +19,7 @@ import { createSelector } from "reselect";
 import { retrievePeakMarkets } from "../../screens/HomePage/selector";
 import { Market } from "../../../types/user";
 import { serviceApi } from "../../../lib/config";
-import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { sweetErrorHandling, sweetTopSmallSuccessAlert } from "../../../lib/sweetAlert";
 import { Definer } from "../../../lib/Definer";
 import MemberApiService from "../../apiServices/memberApiServices";
 import { MemberLiken } from "../../../types/others";
@@ -58,6 +58,8 @@ export function NewArrival() {
         e.target.style.fill = "white";
         refs.current[like_result.like_ref_id].innerHTML--;
       }
+      await sweetTopSmallSuccessAlert('success',700,false)
+
     } catch (err: any) {
       console.log("targetLiketop,ERROR", err);
       sweetErrorHandling(err).then();
