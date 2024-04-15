@@ -71,6 +71,7 @@ const targetProductsRetriever = createSelector(
 );
 
 
+
 export function ChosenShop() {
   /**INITIALIZATIONS */
   const history = useHistory();
@@ -90,6 +91,7 @@ export function ChosenShop() {
       market_mb_id: chosenShopId,
       product_collection: "LIVINGROOM",
     });
+  const [rebuildDate, setRebuildDate] = useState<Date>(new Date)
 
   useEffect(() => {
     const shopService = new MarketApiService();
@@ -103,15 +105,46 @@ export function ChosenShop() {
       .getTargetProducts(targetProductSearchObj)
       .then((data) => setTargetProducts(data))
       .catch((err) => console.log(err));
-  }, [targetProductSearchObj]);
+  }, [targetProductSearchObj, rebuildDate]);
+  const refs: any = useRef([]);
 
   /**HANDLERS */
-const chosenShopHandler = (id:string) =>{
-  setChosenShopId(id);
-  targetProductSearchObj.market_mb_id = id;
-  setTargetProductSearchObj({ ...targetProductSearchObj})
-  history.push(`/shop/${id}`)
-}
+  const chosenShopHandler = (id: string) => {
+    setChosenShopId(id);
+    targetProductSearchObj.market_mb_id = id;
+    setTargetProductSearchObj({ ...targetProductSearchObj })
+    history.push(`/shop/${id}`)
+  };
+
+  const searchOrderHandler = (order: string) => {
+    targetProductSearchObj.page = 1;
+    targetProductSearchObj.order = order;
+    setTargetProductSearchObj({ ...targetProductSearchObj })
+  }
+  const targetLikeProduct = async (e: any) => {
+    try {
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      const memberApiService = new MemberApiService();
+      const like_result: any = await memberApiService.memberLikeTarget({
+        like_ref_id: e.target.id,
+        group_type: "product",
+      });
+      assert.ok(like_result, Definer.general_err2);
+
+      // if (like_result.like_status > 0) {
+      //   e.target.style.fill = "red";
+      //   refs.current[like_result.like_ref_id].innerHTML++;
+      // } else {
+      //   e.target.style.fill = "white";
+      //   refs.current[like_result.like_ref_id].innerHTML--;
+      // }
+      await sweetTopSmallSuccessAlert('success', 700, false);
+      setRebuildDate(new Date);
+    } catch (err: any) {
+      console.log("targetLikeProduct,ERROR", err);
+      sweetErrorHandling(err).then();
+    }
+  };
 
   return (
     <div className="chosen_shop">
@@ -161,9 +194,9 @@ const chosenShopHandler = (id:string) =>{
                 prevEl: ".restaurant-prev",
               }}
             >
-              {randomShops.map((ele:Market) => {
-               const image_path = `${serviceApi}/${ele.mb_image}`
-               return (
+              {randomShops.map((ele: Market) => {
+                const image_path = `${serviceApi}/${ele.mb_image}`
+                return (
                   <SwiperSlide
                     onClick={() => chosenShopHandler(ele._id)}
                     key={ele._id}
@@ -195,16 +228,16 @@ const chosenShopHandler = (id:string) =>{
             sx={{ mt: "65px" }}
           >
             <Box className="prodes_filter_box">
-              <Button onClick={() => {}} color="secondary" variant="contained">
+              <Button onClick={() => searchOrderHandler('createdAt')} color="secondary" variant="contained">
                 new
               </Button>
-              <Button onClick={() => {}} color="secondary" variant="contained">
+              <Button onClick={() => searchOrderHandler('product_price')} color="secondary" variant="contained">
                 price
               </Button>
-              <Button onClick={() => {}} color="secondary" variant="contained">
+              <Button onClick={() => searchOrderHandler('product_likes')} color="secondary" variant="contained">
                 likes
               </Button>
-              <Button onClick={() => {}} color="secondary" variant="contained">
+              <Button onClick={() => searchOrderHandler('product_views')} color="secondary" variant="contained">
                 views
               </Button>
             </Box>
@@ -234,10 +267,11 @@ const chosenShopHandler = (id:string) =>{
                             icon={<FavoriteBorder style={{ color: "white" }} />}
                             id={product._id}
                             checkedIcon={<Favorite style={{ color: "red" }} />}
+                            onClick={targetLikeProduct}
                             /**ts-ignore */
                             checked={
                               product?.me_liked &&
-                              product?.me_liked[0]?.my_favorite
+                                product?.me_liked[0]?.my_favorite
                                 ? true
                                 : false
                             }
