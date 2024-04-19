@@ -11,13 +11,96 @@ import "swiper/css/thumbs";
 import Marginer from "../../components/marginer";
 import { useParams } from "react-router-dom";
 
-const chosen_list = Array.from(Array(5).keys());
+
+//REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+import {
+  setChosenProduct,
+  setChosenShops,
+  setRandomShops,
+  setTargetProducts,
+} from "../../screens/ShopPage/slice";
+import { Market } from "../../../types/user";
+import MarketApiService from "../../apiServices/marketApiServices";
+import {
+  retrieveRandomShops,
+  retrieveTargetProducts,
+
+  retrieveChosenProducts,
+  retrieveChosenShops,
+} from "../../screens/ShopPage/selector";
+import { ProductSearchObj, SearchObj } from "../../../types/others";
+import { serviceApi } from "../../../lib/config";
+import { Definer } from "../../../lib/Definer";
+import assert from "assert";
+import MemberApiService from "../../apiServices/memberApiServices";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+import { Product } from "../../../types/product";
+import ProductApiService from "../../apiServices/productApiService";
+import { useHistory } from "react-router-dom";
+
+
+
+
+/**REDUX SLICE */
+const actionDispatch = (dispach: Dispatch) => ({
+  setRandomShops: (data: Market[]) => dispach(setRandomShops(data)),
+  setChosenProduct: (data: Product[]) => dispach(setChosenProduct(data)),
+  setChosenShops: (data: Market[]) => dispach(setChosenShops(data)),
+});
+
+/**REDUX SELECTOR */
+const chosenShopsRetriever = createSelector(
+  retrieveChosenShops,
+  (chosenShops) => ({
+    chosenShops,
+  })
+);
+
+const chosenProductRetriever = createSelector(
+  retrieveChosenProducts,
+  (chosenProduct) => ({
+    chosenProduct,
+  })
+);
 
 export function ChosenProduct() {
-  return (
-    <div className="chosen_product_page">
-      <Container>
-        <Stack flexDirection={'row'}
+  /*INITIALIZATION */
+  let { product_id } = useParams<{ product_id: string }>();
+  const { setChosenProduct, setChosenShops } = actionDispatch(useDispatch());
+  const { chosenProduct } = useSelector(chosenProductRetriever);
+  const { chosenShops } = useSelector(chosenShopsRetriever)
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
+  const productRelatedProcess = async () => {
+    try {
+      const productService = new ProductApiService();
+      const product: Product = await productService.getChosenProduct(product_id);
+      setChosenProduct(product);
+
+      const shopService = new MarketApiService();
+      const market = await shopService.getChosenMarket(product.market_mb_id);
+      setChosenShops(market);
+    }
+    catch (err) {
+      console.log(`productRelatedError:${err}`) 
+    }
+
+  }
+}
+
+useEffect(() => {
+}, []);
+
+return (
+  <div className="chosen_product_page">
+    <Container>
+      <Stack flexDirection={'row'}
         justifyContent={'space-between'}
         marginTop={'50px'}
         marginBottom={'30px'}>
@@ -94,8 +177,8 @@ export function ChosenProduct() {
                 </div>
               </div>
             </Box>
-            <p className="dish_desc_info">Buy one or buy a few and make every space where you sit more convenient. Light and easy to move around 
-            with removable tray top, handy for serving snacks.</p>
+            <p className="dish_desc_info">Buy one or buy a few and make every space where you sit more convenient. Light and easy to move around
+              with removable tray top, handy for serving snacks.</p>
             <Marginer
               direction="horizontal"
               height="1"
@@ -108,12 +191,16 @@ export function ChosenProduct() {
             </div>
             <div className="button_box">
               <Button variant="contained"
-              className="button_prod">Add to Cart</Button>
+                className="button_prod">Add to Cart</Button>
             </div>
           </Box>
         </Stack>
-        </Stack>
-      </Container>
-    </div>
-  );
+      </Stack>
+    </Container>
+  </div>
+);
 }
+function productRelatedProcess() {
+  throw new Error("Function not implemented.");
+}
+

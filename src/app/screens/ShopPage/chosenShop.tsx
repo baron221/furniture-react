@@ -99,13 +99,13 @@ export function ChosenShop() {
       .getMarkets({ page: 1, limit: 10, order: "random" })
       .then((data) => setRandomShops(data))
       .catch((err) => console.log(err));
-
+    shopService.getChosenMarket(chosenShopId).then(data => setChosenShops(data)).catch((err)=>console.log(err))
     const productService = new ProductApiService();
     productService
       .getTargetProducts(targetProductSearchObj)
       .then((data) => setTargetProducts(data))
       .catch((err) => console.log(err));
-  }, [targetProductSearchObj, rebuildDate]);
+  }, [chosenShopId,targetProductSearchObj, rebuildDate]);
   const refs: any = useRef([]);
 
   /**HANDLERS */
@@ -152,7 +152,7 @@ export function ChosenShop() {
         <Stack flexDirection={"column"} alignItems={"center"}>
           <Stack className="avatar_big_box">
             <Box className="top_text">
-              <p>Ikea Shop</p>
+              <p>{chosenShops?.mb_nick}</p>
               <Box className="Single_search_big_box">
                 <form action="" method="" className="Single_search_form">
                   <input
