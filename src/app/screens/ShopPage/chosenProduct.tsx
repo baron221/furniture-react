@@ -49,7 +49,6 @@ import { useHistory } from "react-router-dom";
 
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
-  setRandomShops: (data: Market[]) => dispach(setRandomShops(data)),
   setChosenProduct: (data: Product[]) => dispach(setChosenProduct(data)),
   setChosenShops: (data: Market[]) => dispach(setChosenShops(data)),
 });
@@ -76,26 +75,48 @@ export function ChosenProduct() {
   const { chosenProduct } = useSelector(chosenProductRetriever);
   const { chosenShops } = useSelector(chosenShopsRetriever)
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
+  const [rebuildDate, setRebuildDate] = useState<Date>(new Date)
+
 
   const productRelatedProcess = async () => {
+
     try {
       const productService = new ProductApiService();
-      const product: Product = await productService.getChosenProduct(product_id);
+      const product: Product[] = await productService.getChosenProduct(product_id);
       setChosenProduct(product);
 
       const shopService = new MarketApiService();
-      const market = await shopService.getChosenMarket(product.market_mb_id);
-      setChosenShops(market);
-    }
-    catch (err) {
-      console.log(`productRelatedError:${err}`) 
-    }
+      // const market: Market[] = await shopService.getChosenMarket(market._id);
+      // setChosenShops(market);
+   } catch (error) {
+      console.log(`dishRelatedProcess, ERROR:`, error);   }
+
 
   }
-}
+
 
 useEffect(() => {
-}, []);
+  productRelatedProcess().then();
+}, [rebuildDate]);
+/*HANDLERS */
+const targetLikeProduct = async (e: any) => {
+  try {
+    assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+    const memberApiService = new MemberApiService();
+    const like_result: any = await memberApiService.memberLikeTarget({
+      like_ref_id: e.target.id,
+      group_type: "product",
+    });
+    assert.ok(like_result, Definer.general_err2);
+
+    await sweetTopSmallSuccessAlert('success', 700, false);
+    setRebuildDate(new Date);
+  } catch (err: any) {
+    console.log("targetLikeProduct,ERROR", err);
+    sweetErrorHandling(err).then();
+  }
+};
+
 
 return (
   <div className="chosen_product_page">
@@ -112,8 +133,8 @@ return (
             navigation={true}
             modules={[FreeMode, Navigation, Thumbs]}
           >
-            {chosen_list.map((ele) => {
-              const img_path = `/imagesfurnis/shopImages/Product.svg`;
+            {chosenProduct?.product_images.map((ele:string) => {
+              const img_path = `${serviceApi}/${ele}`;
               return (
                 <SwiperSlide>
                   <img
@@ -129,15 +150,15 @@ return (
           <Swiper
             loop={true}
             spaceBetween={20}
-            slidesPerView={3}
+            slidesPerView={chosenProduct?.product_images.length}
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper"
             style={{ width: "500px", height: "245px", marginTop: "20px" }}
           >
-            {chosen_list.map((ele) => {
-              const img_path = `/imagesfurnis/shopImages/Product2.svg`;
+            {chosenProduct?.product_images.map((ele:string) => {
+              const img_path = `${serviceApi}/${ele}`;
               return (
                 <SwiperSlide style={{ height: "107px", display: "flex" }}>
                   <img src={img_path} style={{ borderRadius: "15px" }} alt="" />
@@ -148,7 +169,8 @@ return (
         </Stack>
         <Stack className="chosen_product_info_container">
           <Box className="chosen_product_info_box">
-            <strong className="dish_txt">Table Tray</strong>
+            <strong className="dish_txt">{chosenProduct?.product_name}</strong>
+            <span className="resto_name"> {chosenShops?.mb_nick}</span>
             <Box className="rating_box">
               <Rating name="half-rating" defaultValue={3.5} precision={0.5} />
               <div className="evaluation_box">
@@ -160,10 +182,15 @@ return (
                   }}
                 >
                   <Checkbox
+                  {...label}
                     icon={<FavoriteBorder />}
                     checkedIcon={<Favorite style={{ color: "red" }} />}
+                    id = {chosenProduct?._id}
+                    onClick={targetLikeProduct}
+                  /*@ts-ignore*/
+                  checked={chosenProduct?.me_liked && chosenProduct?.me_liked[0]?.my_favorite? true:false}
                   />
-                  <span>10</span>
+                  <span>{chosenProduct?.product_likes}</span>
                 </div>
                 <div
                   style={{
@@ -173,12 +200,11 @@ return (
                   }}
                 >
                   <RemoveRedEyeIcon sx={{ mr: "10px" }} />
-                  <span>10</span>
+                  <span>{chosenProduct?.product_views}</span>
                 </div>
               </div>
             </Box>
-            <p className="dish_desc_info">Buy one or buy a few and make every space where you sit more convenient. Light and easy to move around
-              with removable tray top, handy for serving snacks.</p>
+            <p className="dish_desc_info">{chosenProduct?.product_description}</p>
             <Marginer
               direction="horizontal"
               height="1"
@@ -187,7 +213,7 @@ return (
             />
             <div className="dish_price_box">
               <span>Price</span>
-              <span>$115</span>
+              <span>$ {chosenProduct?.product_price}</span>
             </div>
             <div className="button_box">
               <Button variant="contained"
@@ -200,7 +226,3 @@ return (
   </div>
 );
 }
-function productRelatedProcess() {
-  throw new Error("Function not implemented.");
-}
-

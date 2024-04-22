@@ -412,6 +412,7 @@
   margin-right: 15px;
   margin-top: 60px;
   width: 273px;
+  cursor: pointer;
 }
 .chosen_shop .prod_box .prod_img {
   background-size: cover;

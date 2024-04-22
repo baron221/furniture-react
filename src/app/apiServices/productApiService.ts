@@ -34,7 +34,7 @@ class ProductApiService {
                 result = await axios.get(this.path + url, { withCredentials: true })
             assert.ok(result, Definer.general_err2);
             console.log('state:', result.data.state);
-            const product: Product = result.data.data;
+            const product: Product[] = result.data.data;
             return product;
         } catch (error: any) {
             console.log(`ERROR::: getChosenProduct ${error.message}`);

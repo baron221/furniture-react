@@ -90,6 +90,7 @@ export function ChosenShop() {
       order: "createdAt",
       market_mb_id: chosenShopId,
       product_collection: "LIVINGROOM",
+
     });
   const [rebuildDate, setRebuildDate] = useState<Date>(new Date)
 
@@ -121,6 +122,9 @@ export function ChosenShop() {
     targetProductSearchObj.order = order;
     setTargetProductSearchObj({ ...targetProductSearchObj })
   }
+  const chosenProductHandler = (id: string) => {
+    history.push(`/shop/product/${id}`)
+ }
   const targetLikeProduct = async (e: any) => {
     try {
       assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
@@ -248,7 +252,7 @@ export function ChosenShop() {
               {targetProducts.map((product: Product) => {
                 const image_path = `${serviceApi}/${product.product_images[0]}`;
                 return (
-                  <Box className="prod_box" key={product._id}>
+                  <Box onClick={() => chosenProductHandler(product._id)} className="prod_box" key={product._id}>
                     <Box
                       className="prod_img"
                       sx={{
