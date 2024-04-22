@@ -6,6 +6,7 @@ import { Market } from "./user";
 export interface AppRootState {
     homePage:HomePageState;
     shopPage:ShopPageState;
+    ordersPage:OrdersPageState
 }
 
 /**HOMEPAGE */

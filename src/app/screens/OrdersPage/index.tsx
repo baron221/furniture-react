@@ -10,11 +10,60 @@ import CurrentOrders from "../../components/orders/currentOrders";
 import Marginer from "../../components/marginer";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import { Fade } from "react-awesome-reveal";
+import { Order } from "../../../types/order";
 
 
+//REDUX
+import { useDispatch } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+
+
+import { serviceApi } from "../../../lib/config";
+import { Definer } from "../../../lib/Definer";
+import assert from "assert";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+
+import { useHistory } from "react-router-dom";
+import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
+import { retrieveFinishedOrders, retrievePausedOrders, retrieveProcessOrders } from "./selector";
+
+/**REDUX SLICE */
+const actionDispatch = (dispach: Dispatch) => ({
+    setPausedOrders: (data: Order[]) => dispach(setPausedOrders(data)),
+    setProcessOrders: (data: Order[]) => dispach(setProcessOrders(data)),
+    setFinishedOrders: (data: Order[]) => dispach(setFinishedOrders(data)),
+  });
+  
+
+/**REDUX SELECTOR */
+const pausedOrdersRetriever = createSelector(
+    retrievePausedOrders,
+    (pausedOrders) => ({
+        pausedOrders,
+    })
+  );
+  
+  const processOrdersRetriever = createSelector(
+    retrieveProcessOrders,
+    (processOrders) => ({
+        processOrders,
+    })
+  );
+  
+  const finishedOrdersRetriever = createSelector(
+    retrieveFinishedOrders,
+    (finishedOrders) => ({
+        finishedOrders,
+    })
+  );
+  
 export function OrdersPage(props: any) {
-    
-
+    /*INITIALIZATIONS*/
+    const {setPausedOrders,setProcessOrders,setFinishedOrders} = actionDispatch(useDispatch())
     const [value, setValue] = useState("1");
     useEffect(() => {
 

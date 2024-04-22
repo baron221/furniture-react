@@ -3,6 +3,42 @@ import Button from "@mui/material/Button";
 import TabPanel from "@material-ui/lab/TabPanel";
 import { Fade } from "react-awesome-reveal";
 
+//REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+
+
+import { serviceApi } from "../../../lib/config";
+import { Definer } from "../../../lib/Definer";
+import assert from "assert";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+
+import { useHistory } from "react-router-dom";
+import {  retrievePausedOrders } from "../../screens/OrdersPage/selector";
+import { Order } from "../../../types/order";
+import { setFinishedOrders, setPausedOrders, setProcessOrders } from "../../screens/OrdersPage/slice";
+
+/**REDUX SLICE */
+const actionDispatch = (dispach: Dispatch) => ({
+    setPausedOrders: (data: Order[]) => dispach(setPausedOrders(data)),
+    setProcessOrders: (data: Order[]) => dispach(setProcessOrders(data)),
+    setFinishedOrders: (data: Order[]) => dispach(setFinishedOrders(data)),
+  });
+  
+
+/**REDUX SELECTOR */
+const pausedOrdersRetriever = createSelector(
+    retrievePausedOrders,
+    (pausedOrders) => ({
+        pausedOrders,
+    })
+  );
+  
+
 const currentOrders = [
   [1, 2, 3],
   [1, 2, 3],
@@ -10,6 +46,8 @@ const currentOrders = [
 ];
 
 export default function CurrentOrders(props: any) {
+  /*INITIALIZATION*/
+  const {pausedOrders} = useSelector(pausedOrdersRetriever)
   return (
     <>
       <Fade direction="left">

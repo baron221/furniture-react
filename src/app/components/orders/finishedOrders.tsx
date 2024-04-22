@@ -3,6 +3,19 @@ import Button from "@mui/material/Button";
 import TabPanel from '@material-ui/lab/TabPanel';
 import moment from "moment";
 
+//REDUX
+
+import { retrieveFinishedOrders } from "../../screens/OrdersPage/selector";
+import { createSelector } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
+
+
+const finishedOrdersRetriever = createSelector(
+    retrieveFinishedOrders,
+    (finishedOrders) => ({
+        finishedOrders,
+    })
+  );
 const finishedOrders = [
     [1,2,3],
     [1,2,3],
@@ -11,6 +24,7 @@ const finishedOrders = [
 ]
 
 export default function FinishedOrders(props: any) {
+    // const {finishedOrders} = useSelector(finishedOrdersRetriever)
 
     return (
         <TabPanel value="3">

@@ -2,7 +2,42 @@ import { Box, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
 import TabPanel from '@material-ui/lab/TabPanel'
 import moment from "moment";
+//REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
 
+
+import { serviceApi } from "../../../lib/config";
+import { Definer } from "../../../lib/Definer";
+import assert from "assert";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+
+import { useHistory } from "react-router-dom";
+import {   retrieveProcessOrders } from "../../screens/OrdersPage/selector";
+import { Order } from "../../../types/order";
+import { setFinishedOrders, setPausedOrders, setProcessOrders } from "../../screens/OrdersPage/slice";
+
+/**REDUX SLICE */
+const actionDispatch = (dispach: Dispatch) => ({
+    setPausedOrders: (data: Order[]) => dispach(setPausedOrders(data)),
+    setProcessOrders: (data: Order[]) => dispach(setProcessOrders(data)),
+    setFinishedOrders: (data: Order[]) => dispach(setFinishedOrders(data)),
+  });
+  
+
+/**REDUX SELECTOR */
+const processOrdersRetriever = createSelector(
+    retrieveProcessOrders,
+    (processOrders) => ({
+        processOrders,
+    })
+  );
+  
+/**REDUX SLICE */
 const processOrders = [
     [1,2,3],
     [1,2,3],
@@ -13,6 +48,8 @@ const processOrders = [
 
 export default function ProcessOrders(props: any) {
     /** INITIALIZATIONS */
+    // const {processOrders} = useSelector(processOrdersRetriever)
+
 
     return (
         <TabPanel value="2">
