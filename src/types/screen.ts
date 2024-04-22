@@ -1,4 +1,5 @@
 import { Community } from "./Communtiy";
+import { Order } from "./order";
 import { Product } from "./product";
 import { Market } from "./user";
 
@@ -26,6 +27,10 @@ export interface ShopPageState{
     chosenShops:Market|null;
     targetProducts:Product[];
     chosenProduct:Product | null;
-
-
 }
+/*ORDERS PAGE */
+export interface OrdersPageState {
+    pausedOrders:Order[] , 
+    processOrders:Order[],
+    finishedOrders:Order[]
+} 
