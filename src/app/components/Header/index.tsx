@@ -53,11 +53,14 @@ export function NavbarHome(props: any) {
                     Product
                   </NavLink>
                 </Box>
-                <Box className="hover" onClick={props.setPath}>
-                  <NavLink to="/orders" activeClassName="underline">
-                    Orders
-                  </NavLink>
-                </Box>
+                {props.verifiedMemberData ? (
+                  <Box className="hover" onClick={props.setPath}>
+                    <NavLink to="/orders" activeClassName="underline">
+                      Orders
+                    </NavLink>
+                  </Box>
+                ) : null}
+
                 <Box className="hover" onClick={props.setPath}>
                   <NavLink to="/community" activeClassName="underline">
                     Community
