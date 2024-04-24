@@ -118,8 +118,25 @@ function App() {
       localStorage.setItem("cart_data", JSON.stringify(cart_updated));
     }
   };
-  const onRemove = () => {};
-  const onDelete = () => {};
+  const onRemove = (data: CartItem) => {
+    const item_data: any = cartItems.find((e: CartItem) => e._id === data._id);
+    if (item_data.quantity === 1) {
+      const cart_updated =cartItems.filter((ele:CartItem)=> ele._id !== data._id)
+    } else {
+      const cart_updated = cartItems.map((e: CartItem) =>
+        e._id === data._id
+          ? { ...item_data, quantity: item_data.quantity - 1 }
+          : e
+      );
+      setCartItems(cart_updated);
+      localStorage.setItem("cart_data", JSON.stringify(cart_updated));
+    }
+  };
+  const onDelete = (data:CartItem) => {
+    const cart_updated =cartItems.filter((ele:CartItem)=> ele._id !== data._id);
+    setCartItems(cart_updated);
+    localStorage.setItem("cart_data", JSON.stringify(cart_updated));
+  };
   const onDeleteAll = () => {};
 
   return (
@@ -137,6 +154,8 @@ function App() {
           open={open}
           cartItems={cartItems}
           onAdd={onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
 
         />
       ) : main_path.includes("/shop") ? (
@@ -152,6 +171,8 @@ function App() {
           open={open}
           cartItems={cartItems}
           onAdd={onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
         />
       ) : (
         <NavbarOthers
@@ -166,6 +187,8 @@ function App() {
           open={open}
           cartItems={cartItems}
           onAdd={onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
 
         />
       )}

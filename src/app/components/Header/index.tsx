@@ -103,9 +103,14 @@ export function NavbarHome(props: any) {
                     aria-haspopup="true"
                     aria-expanded={undefined}
                   >
-                    <Badge  color="secondary">
-                    <Basket cartItems={props.cartItems} onAdd={props.onAdd} />
+                    <Badge color="secondary">
+                      <Basket
+                        cartItems={props.cartItems}
+                        onAdd={props.onAdd}
+                        onRemove={props.onRemove}
+                        onDelete={props.onDelete}
 
+                      />
                     </Badge>
                   </IconButton>
                   {!props.verifiedMemberData ? (

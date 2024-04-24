@@ -20,7 +20,7 @@ export default function Basket(props: any) {
   const open = Boolean(anchorEl);
 
 
-  
+
   const history = useHistory();
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
   const itemsPrice = cartItems.reduce(
@@ -118,6 +118,7 @@ export default function Basket(props: any) {
                   <Box className={"basket_info_box"}>
                     <div className={"cancel_btn"}>
                       <CancelIcon
+                      
                         color={"primary"}
                         onClick={() => onDelete(item)}
                       />

@@ -93,7 +93,13 @@ export function NavbarOthers(props: any) {
                 aria-expanded={undefined}
               >
                 <Badge color="secondary">
-                  <Basket cartItems={props.cartItems} onAdd={props.onAdd} />
+                  <Basket
+                    cartItems={props.cartItems}
+                    onAdd={props.onAdd}
+                    onRemove={props.onRemove}
+                    onDelete={props.onDelete}
+
+                  />
                 </Badge>
               </IconButton>
 

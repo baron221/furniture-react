@@ -84,18 +84,22 @@ export function NavbarShop(props: any) {
                   </Box>
                 </IconButton>
               )}
-             <IconButton
-                    aria-label="cart"
-                    id="basic-button"
-                    aria-controls={undefined}
-                    aria-haspopup="true"
-                    aria-expanded={undefined}
-                  >
-                    <Badge  color="secondary">
-                    <Basket cartItems={props.cartItems} onAdd={props.onAdd} />
-
-                    </Badge>
-                  </IconButton>
+              <IconButton
+                aria-label="cart"
+                id="basic-button"
+                aria-controls={undefined}
+                aria-haspopup="true"
+                aria-expanded={undefined}
+              >
+                <Badge color="secondary">
+                  <Basket
+                    cartItems={props.cartItems}
+                    onAdd={props.onAdd}
+                    onRemove={props.onRemove}
+                    onDelete={props.onDelete}
+                  />
+                </Badge>
+              </IconButton>
               {!props.verifiedMemberData ? (
                 <IconButton
                   aria-label="cart"
