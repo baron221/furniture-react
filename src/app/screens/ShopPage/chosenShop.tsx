@@ -40,7 +40,6 @@ import { Product } from "../../../types/product";
 import ProductApiService from "../../apiServices/productApiService";
 import { useHistory } from "react-router-dom";
 
-
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
   setRandomShops: (data: Market[]) => dispach(setRandomShops(data)),
@@ -70,9 +69,7 @@ const targetProductsRetriever = createSelector(
   })
 );
 
-
-
-export function ChosenShop() {
+export function ChosenShop(props: any) {
   /**INITIALIZATIONS */
   const history = useHistory();
   let { shop_id } = useParams<{ shop_id: string }>();
@@ -90,9 +87,8 @@ export function ChosenShop() {
       order: "createdAt",
       market_mb_id: chosenShopId,
       product_collection: "LIVINGROOM",
-
     });
-  const [rebuildDate, setRebuildDate] = useState<Date>(new Date)
+  const [rebuildDate, setRebuildDate] = useState<Date>(new Date());
 
   useEffect(() => {
     const shopService = new MarketApiService();
@@ -100,31 +96,34 @@ export function ChosenShop() {
       .getMarkets({ page: 1, limit: 10, order: "random" })
       .then((data) => setRandomShops(data))
       .catch((err) => console.log(err));
-    shopService.getChosenMarket(chosenShopId).then(data => setChosenShops(data)).catch((err)=>console.log(err))
+    shopService
+      .getChosenMarket(chosenShopId)
+      .then((data) => setChosenShops(data))
+      .catch((err) => console.log(err));
     const productService = new ProductApiService();
     productService
       .getTargetProducts(targetProductSearchObj)
       .then((data) => setTargetProducts(data))
       .catch((err) => console.log(err));
-  }, [chosenShopId,targetProductSearchObj, rebuildDate]);
+  }, [chosenShopId, targetProductSearchObj, rebuildDate]);
   const refs: any = useRef([]);
 
   /**HANDLERS */
   const chosenShopHandler = (id: string) => {
     setChosenShopId(id);
     targetProductSearchObj.market_mb_id = id;
-    setTargetProductSearchObj({ ...targetProductSearchObj })
-    history.push(`/shop/${id}`)
+    setTargetProductSearchObj({ ...targetProductSearchObj });
+    history.push(`/shop/${id}`);
   };
 
   const searchOrderHandler = (order: string) => {
     targetProductSearchObj.page = 1;
     targetProductSearchObj.order = order;
-    setTargetProductSearchObj({ ...targetProductSearchObj })
-  }
+    setTargetProductSearchObj({ ...targetProductSearchObj });
+  };
   const chosenProductHandler = (id: string) => {
-    history.push(`/shop/product/${id}`)
- }
+    history.push(`/shop/product/${id}`);
+  };
   const targetLikeProduct = async (e: any) => {
     try {
       assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
@@ -142,8 +141,8 @@ export function ChosenShop() {
       //   e.target.style.fill = "white";
       //   refs.current[like_result.like_ref_id].innerHTML--;
       // }
-      await sweetTopSmallSuccessAlert('success', 700, false);
-      setRebuildDate(new Date);
+      await sweetTopSmallSuccessAlert("success", 700, false);
+      setRebuildDate(new Date());
     } catch (err: any) {
       console.log("targetLikeProduct,ERROR", err);
       sweetErrorHandling(err).then();
@@ -199,7 +198,7 @@ export function ChosenShop() {
               }}
             >
               {randomShops.map((ele: Market) => {
-                const image_path = `${serviceApi}/${ele.mb_image}`
+                const image_path = `${serviceApi}/${ele.mb_image}`;
                 return (
                   <SwiperSlide
                     onClick={() => chosenShopHandler(ele._id)}
@@ -232,16 +231,32 @@ export function ChosenShop() {
             sx={{ mt: "65px" }}
           >
             <Box className="prodes_filter_box">
-              <Button onClick={() => searchOrderHandler('createdAt')} color="secondary" variant="contained">
+              <Button
+                onClick={() => searchOrderHandler("createdAt")}
+                color="secondary"
+                variant="contained"
+              >
                 new
               </Button>
-              <Button onClick={() => searchOrderHandler('product_price')} color="secondary" variant="contained">
+              <Button
+                onClick={() => searchOrderHandler("product_price")}
+                color="secondary"
+                variant="contained"
+              >
                 price
               </Button>
-              <Button onClick={() => searchOrderHandler('product_likes')} color="secondary" variant="contained">
+              <Button
+                onClick={() => searchOrderHandler("product_likes")}
+                color="secondary"
+                variant="contained"
+              >
                 likes
               </Button>
-              <Button onClick={() => searchOrderHandler('product_views')} color="secondary" variant="contained">
+              <Button
+                onClick={() => searchOrderHandler("product_views")}
+                color="secondary"
+                variant="contained"
+              >
                 views
               </Button>
             </Box>
@@ -252,7 +267,11 @@ export function ChosenShop() {
               {targetProducts.map((product: Product) => {
                 const image_path = `${serviceApi}/${product.product_images[0]}`;
                 return (
-                  <Box onClick={() => chosenProductHandler(product._id)} className="prod_box" key={product._id}>
+                  <Box
+                    onClick={() => chosenProductHandler(product._id)}
+                    className="prod_box"
+                    key={product._id}
+                  >
                     <Box
                       className="prod_img"
                       sx={{
@@ -275,14 +294,21 @@ export function ChosenShop() {
                             /**ts-ignore */
                             checked={
                               product?.me_liked &&
-                                product?.me_liked[0]?.my_favorite
+                              product?.me_liked[0]?.my_favorite
                                 ? true
                                 : false
                             }
                           />
                         </Badge>
                       </Button>
-                      <Button className="view_btn">
+                      <Button
+                        className="view_btn"
+                        onClick={(e) => {props.onAdd(product)
+                          e.stopPropagation()
+                        }
+                        }
+                        
+                      >
                         <img
                           src="/iconsfurnis/shopping_cart.svg"
                           alt=""

@@ -19,6 +19,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Fade } from "react-awesome-reveal";
+import Basket from "./basket";
 
 export function NavbarHome(props: any) {
   return (
@@ -102,8 +103,9 @@ export function NavbarHome(props: any) {
                     aria-haspopup="true"
                     aria-expanded={undefined}
                   >
-                    <Badge badgeContent={3} color="secondary">
-                      <img src="/iconsfurnis/shoppingbag.svg" alt="" />
+                    <Badge  color="secondary">
+                    <Basket cartItems={props.cartItems} onAdd={props.onAdd} />
+
                     </Badge>
                   </IconButton>
                   {!props.verifiedMemberData ? (

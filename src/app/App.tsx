@@ -3,7 +3,7 @@ import "../css/App.css";
 import "../css/navbar.css";
 import "../css/footer.css";
 import "../css/home.css";
-import "../app/apiServices/verify"
+import "../app/apiServices/verify";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { CommunityPage } from "./screens/CommunityPage";
@@ -19,10 +19,15 @@ import { OrdersPage } from "./screens/OrdersPage";
 import AuthenticationModal from "./components/auth";
 import { Member } from "../types/user";
 import { serviceApi } from "../lib/config";
-import { sweetFailureProvider, sweetTopSmallSuccessAlert } from "../lib/sweetAlert";
+import {
+  sweetFailureProvider,
+  sweetTopSmallSuccessAlert,
+} from "../lib/sweetAlert";
 import { Definer } from "../lib/Definer";
-import  assert  from "assert";
+import assert from "assert";
 import MemberApiService from "./apiServices/memberApiServices";
+import { CartItem } from "../types/others";
+import { Product } from "../types/product";
 
 function App() {
   /** INITIALIZATION **/
@@ -35,6 +40,10 @@ function App() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const cartJson: any = localStorage.getItem("cart_data");
+  const current_cart: CartItem[] = JSON.parse(cartJson) ?? [];
+  const [cartItems, setCartItems] = useState<CartItem[]>(current_cart);
 
   useEffect(() => {
     console.log("=== useEffect:App===");
@@ -73,20 +82,49 @@ function App() {
     setAnchorEl(null);
   };
 
-  const handleLogoutRequest = async() =>{
-    try{
-      const memberApiService =new MemberApiService();
+  const handleLogoutRequest = async () => {
+    try {
+      const memberApiService = new MemberApiService();
       await memberApiService.logOutRequest();
-      await sweetTopSmallSuccessAlert('Success' ,700 , true)
-    }catch(err:any){
-      console.log(err)
-    sweetFailureProvider(Definer.general_err2)
+      await sweetTopSmallSuccessAlert("Success", 700, true);
+    } catch (err: any) {
+      console.log(err);
+      sweetFailureProvider(Definer.general_err2);
     }
-  }
+  };
+
+  const onAdd = (product: Product) => {
+    const exist: any = cartItems.find(
+      (item: CartItem) => item._id === product._id
+    );
+    if (exist) {
+      const cart_updated = cartItems.map((item: CartItem) =>
+        item._id === product._id
+          ? { ...exist, quantity: exist.quantity + 1 }
+          : item
+      );
+      setCartItems(cart_updated);
+      localStorage.setItem("cart_data", JSON.stringify(cart_updated));
+    } else {
+      const new_item: CartItem = {
+        _id: product._id,
+        quantity: 1,
+        name: product.product_name,
+        price: product.product_price,
+        image: product.product_images[0],
+      };
+      const cart_updated = [...cartItems, { ...new_item }];
+      setCartItems(cart_updated);
+      localStorage.setItem("cart_data", JSON.stringify(cart_updated));
+    }
+  };
+  const onRemove = () => {};
+  const onDelete = () => {};
+  const onDeleteAll = () => {};
 
   return (
     <Router>
-      {main_path == "/" ? 
+      {main_path == "/" ? (
         <NavbarHome
           setPath={setPath}
           handleLoginOpen={handleLoginOpen}
@@ -97,8 +135,11 @@ function App() {
           handleLogoutRequest={handleLogoutRequest}
           anchorEl={anchorEl}
           open={open}
+          cartItems={cartItems}
+          onAdd={onAdd}
+
         />
-       : main_path.includes("/shop") ? 
+      ) : main_path.includes("/shop") ? (
         <NavbarShop
           setPath={setPath}
           handleLoginOpen={handleLoginOpen}
@@ -107,11 +148,12 @@ function App() {
           handleLogOutClick={handleLogOutClick}
           handleCloseLogOut={handleCloseLogOut}
           handleLogoutRequest={handleLogoutRequest}
-
           anchorEl={anchorEl}
           open={open}
+          cartItems={cartItems}
+          onAdd={onAdd}
         />
-       : 
+      ) : (
         <NavbarOthers
           setPath={setPath}
           handleLoginOpen={handleLoginOpen}
@@ -120,11 +162,13 @@ function App() {
           handleLogOutClick={handleLogOutClick}
           handleCloseLogOut={handleCloseLogOut}
           handleLogoutRequest={handleLogoutRequest}
-
           anchorEl={anchorEl}
           open={open}
+          cartItems={cartItems}
+          onAdd={onAdd}
+
         />
-      }
+      )}
 
       <Switch>
         <Route path="/account">
@@ -138,7 +182,7 @@ function App() {
           <OrdersPage />
         </Route>
         <Route path="/shop">
-          <ShopPage />
+          <ShopPage onAdd={onAdd} />
         </Route>
         <Route path="/product">
           <ProductPage />

@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import Basket from "./basket";
 
 export function NavbarOthers(props: any) {
   return (
@@ -91,8 +92,8 @@ export function NavbarOthers(props: any) {
                 aria-haspopup="true"
                 aria-expanded={undefined}
               >
-                <Badge badgeContent={3} color="secondary">
-                  <img src="/iconsfurnis/shoppingbag.svg" alt="" />
+                <Badge color="secondary">
+                  <Basket cartItems={props.cartItems} onAdd={props.onAdd} />
                 </Badge>
               </IconButton>
 
