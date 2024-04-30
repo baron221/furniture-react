@@ -2,7 +2,6 @@ import { Product } from "./product";
 
 export interface orderItems {
     _id:string,
-
     item_quantity:number,
     item_price:number,
     order_id:string,
@@ -19,9 +18,8 @@ export interface Order {
     mb_id:string,
     createdAt:Date,
     updatedAt:Date,
-
     /*from aggregations */
-    order_items:any[],
+    order_items:orderItems[],
     product_data:Product[]
 }
 

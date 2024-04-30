@@ -1,78 +1,61 @@
+
+import  React from "react"
 import { Box, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
 import TabPanel from "@material-ui/lab/TabPanel";
 import { Fade } from "react-awesome-reveal";
+import { Product } from "../../../types/product";
 
 //REDUX
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
-
-
-import { serviceApi } from "../../../lib/config";
-import { Definer } from "../../../lib/Definer";
-import assert from "assert";
-import {
-  sweetErrorHandling,
-  sweetTopSmallSuccessAlert,
-} from "../../../lib/sweetAlert";
-
-import { useHistory } from "react-router-dom";
-import {  retrievePausedOrders } from "../../screens/OrdersPage/selector";
+import { serviceApi } from "../../../lib/config"
+import { retrievePausedOrders } from "../../screens/OrdersPage/selector";
 import { Order } from "../../../types/order";
-import { setFinishedOrders, setPausedOrders, setProcessOrders } from "../../screens/OrdersPage/slice";
 
-/**REDUX SLICE */
-const actionDispatch = (dispach: Dispatch) => ({
-    setPausedOrders: (data: Order[]) => dispach(setPausedOrders(data)),
-    setProcessOrders: (data: Order[]) => dispach(setProcessOrders(data)),
-    setFinishedOrders: (data: Order[]) => dispach(setFinishedOrders(data)),
-  });
-  
+
 
 /**REDUX SELECTOR */
 const pausedOrdersRetriever = createSelector(
-    retrievePausedOrders,
-    (pausedOrders) => ({
-        pausedOrders,
-    })
-  );
-  
+  retrievePausedOrders,
+  (pausedOrders) => ({
+    pausedOrders,
+  })
+);
 
-const currentOrders = [
-  [1, 2, 3],
-  [1, 2, 3],
-  [1, 2, 3],
-];
 
-export default function CurrentOrders(props: any) {
+export default function PausedOrders(props: any) {
+  const { pausedOrders } = useSelector(pausedOrdersRetriever);
   /*INITIALIZATION*/
-  const {pausedOrders} = useSelector(pausedOrdersRetriever)
   return (
     <>
       <Fade direction="left">
         <TabPanel value="1">
           <Stack>
-            {currentOrders?.map((ele) => {
+            {pausedOrders?.map((order: Order) => {
+
               return (
                 <Box className="order_main_box">
                   <Box className="order_box_scroll">
-                    {ele.map((item) => {
-                      const image_path = ``;
+                    {order.order_items.map((item) => {
+                      const product: Product = order.product_data.filter(
+                        (ele) => ele._id === item.product_id
+                      )[0];
+                      const image_path = `${serviceApi}/ ${product.product_images[0]}`;
                       return (
                         <Box className="ordersName_price">
                           <img
                             className="orderDishImg"
-                            src={`/imagesfurnis/kitchen.svg`}
+                            src={image_path}
                             alt=""
                           />
-                          <p className="titleDish">Toaster</p>
+                          <p className="titleDish">{product.product_name}</p>
                           <Box className="priceBox">
-                            <p>$20</p>
+                            <p>${item.item_price}</p>
                             <img src="/icons/Close.svg" alt="" />
-                            <p></p>
+                            <p>{item.item_quantity}</p>
                             <img src="/icons/Pause.svg" alt="" />
-                            <p style={{ marginLeft: "15px" }}>${}</p>
+                            <p style={{ marginLeft: "15px" }}>${item.item_price*item.item_quantity}</p>
                           </Box>
                         </Box>
                       );
@@ -81,21 +64,21 @@ export default function CurrentOrders(props: any) {
                   <Box className="total_price_box black_solid">
                     <Box className="boxTotal">
                       <p>Price of Product</p>
-                      <p></p>
+                      <p>${order.order_total_amount - order.order_delivery_cost}</p>
                       <img
                         src="/icons/Plus.svg"
                         style={{ marginLeft: "20px" }}
                         alt=""
                       />
                       <p>Delivery Service </p>
-                      <p>$</p>
+                      <p>${order.order_delivery_cost}</p>
                       <img
                         src="/icons/Pause.svg"
                         style={{ marginLeft: "20px" }}
                         alt=""
                       />
                       <p>All</p>
-                      <p>$</p>
+                      <p>${order.order_total_amount}</p>
 
                       <Button
                         variant="contained"

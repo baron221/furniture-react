@@ -4,7 +4,7 @@ import Badge from "@mui/material/Badge";
 import Menu from "@mui/material/Menu";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import React from "react";
+import React, { useState } from "react";
 import { CartItem } from "../../../types/others";
 import { serviceApi } from "../../../lib/config";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
@@ -20,6 +20,7 @@ export default function Basket(props: any) {
   const open = Boolean(anchorEl);
 
 
+  const [rebuildDate, setOrderRebuild] = useState<Date>(new Date());
 
   const history = useHistory();
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
@@ -41,18 +42,18 @@ export default function Basket(props: any) {
 
   const processOrderHandler = async () => {
     try {
-      assert.ok(verifiedMemberData, Definer.auth_err1);
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
       const order = new OrderApiService();
       await order.createOrder(cartItems);
 
       onDeleteAll();
       handleClose();
 
-      props.setOrderRebuild(new Date());
+    //   setOrderRebuild(new Date());
       history.push("/orders");
-    } catch (error) {
-      console.log(error);
-      sweetErrorHandling(error).then();
+    } catch (err:any) {
+      console.log(err);
+      sweetErrorHandling(err).then();
     }
   };
 
