@@ -19,6 +19,7 @@ import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
 
 import OrderApiService from "../../apiServices/orderApiServices";
 import PausedOrders from "../../components/orders/pausedOrders";
+import { Member } from "../../../types/user";
 
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
@@ -31,6 +32,7 @@ export function OrdersPage(props: any) {
   /*INITIALIZATIONS*/
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
+const verifiedMemberData:Member | null = props.verifiedMemberData;
 
   const [value, setValue] = useState("1");
 
@@ -112,7 +114,7 @@ export function OrdersPage(props: any) {
               >
                 <Box className="order_user_img">
                   <img
-                    src={"/iconsfurnis/user.png"}
+                    src={verifiedMemberData?.mb_image}
                     className="order_user_avatar"
                     alt=""
                   />
@@ -124,8 +126,8 @@ export function OrdersPage(props: any) {
                     />
                   </Box>
                 </Box>
-                <span className="order_user_name">Baron</span>
-                <span className="order_user_prof">{}</span>
+                <span className="order_user_name">{verifiedMemberData?.mb_nick}</span>
+                <span className="order_user_prof">{verifiedMemberData?.mb_type ?? "USER"}</span>
                 <Box
                   sx={{ width: "250%", marginTop: "40px", marginBottom: "8px" }}
                 >
@@ -141,7 +143,7 @@ export function OrdersPage(props: any) {
                 <Box sx={{ display: "flex" }}>
                   <LocationOnRoundedIcon />
                 </Box>
-                <Box className="spec_address_text">{}</Box>
+                <Box className="spec_address_text">{verifiedMemberData?.mb_address?? "Address is not visible"}</Box>
               </Stack>
             </Stack>
             <Stack className="order_info_box">
