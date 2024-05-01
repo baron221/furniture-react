@@ -6,7 +6,6 @@ import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import ProcessOrders from "../../components/orders/processOrders";
 import FinishedOrders from "../../components/orders/finishedOrders";
-import CurrentOrders from "../../components/orders/pausedOrders";
 import Marginer from "../../components/marginer";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import { Fade } from "react-awesome-reveal";
@@ -15,23 +14,9 @@ import { Order } from "../../../types/order";
 //REDUX
 import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
 
-import { serviceApi } from "../../../lib/config";
-import { Definer } from "../../../lib/Definer";
-import assert from "assert";
-import {
-  sweetErrorHandling,
-  sweetTopSmallSuccessAlert,
-} from "../../../lib/sweetAlert";
-
-import { useHistory } from "react-router-dom";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
-import {
-  retrieveFinishedOrders,
-  retrievePausedOrders,
-  retrieveProcessOrders,
-} from "./selector";
+
 import OrderApiService from "../../apiServices/orderApiServices";
 import PausedOrders from "../../components/orders/pausedOrders";
 
@@ -42,12 +27,11 @@ const actionDispatch = (dispach: Dispatch) => ({
   setFinishedOrders: (data: Order[]) => dispach(setFinishedOrders(data)),
 });
 
-
-
 export function OrdersPage(props: any) {
   /*INITIALIZATIONS*/
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
+
   const [value, setValue] = useState("1");
 
   useEffect(() => {

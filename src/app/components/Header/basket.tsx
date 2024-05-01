@@ -20,7 +20,6 @@ export default function Basket(props: any) {
   const open = Boolean(anchorEl);
 
 
-  const [rebuildDate, setOrderRebuild] = useState<Date>(new Date());
 
   const history = useHistory();
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
@@ -49,7 +48,7 @@ export default function Basket(props: any) {
       onDeleteAll();
       handleClose();
 
-    //   setOrderRebuild(new Date());
+      props.setOrderRebuild(new Date());
       history.push("/orders");
     } catch (err:any) {
       console.log(err);

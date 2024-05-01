@@ -42,7 +42,6 @@ function App() {
   const open = Boolean(anchorEl);
   const [orderRebuild, setOrderRebuild] = useState<Date>(new Date());
 
-
   const cartJson: any = localStorage.getItem("cart_data");
   const current_cart: CartItem[] = JSON.parse(cartJson) ?? [];
   const [cartItems, setCartItems] = useState<CartItem[]>(current_cart);
@@ -123,7 +122,9 @@ function App() {
   const onRemove = (data: CartItem) => {
     const item_data: any = cartItems.find((e: CartItem) => e._id === data._id);
     if (item_data.quantity === 1) {
-      const cart_updated =cartItems.filter((ele:CartItem)=> ele._id !== data._id)
+      const cart_updated = cartItems.filter(
+        (ele: CartItem) => ele._id !== data._id
+      );
     } else {
       const cart_updated = cartItems.map((e: CartItem) =>
         e._id === data._id
@@ -134,8 +135,10 @@ function App() {
       localStorage.setItem("cart_data", JSON.stringify(cart_updated));
     }
   };
-  const onDelete = (data:CartItem) => {
-    const cart_updated =cartItems.filter((ele:CartItem)=> ele._id !== data._id);
+  const onDelete = (data: CartItem) => {
+    const cart_updated = cartItems.filter(
+      (ele: CartItem) => ele._id !== data._id
+    );
     setCartItems(cart_updated);
     localStorage.setItem("cart_data", JSON.stringify(cart_updated));
   };
@@ -162,8 +165,7 @@ function App() {
           onRemove={onRemove}
           onDelete={onDelete}
           onDeleteAll={onDeleteAll}
-
-
+          setOrderRebuild={setOrderRebuild}
         />
       ) : main_path.includes("/shop") ? (
         <NavbarShop
@@ -181,7 +183,7 @@ function App() {
           onRemove={onRemove}
           onDelete={onDelete}
           onDeleteAll={onDeleteAll}
-
+          setOrderRebuild={setOrderRebuild}
         />
       ) : (
         <NavbarOthers
@@ -199,7 +201,7 @@ function App() {
           onRemove={onRemove}
           onDelete={onDelete}
           onDeleteAll={onDeleteAll}
-
+          setOrderRebuild={setOrderRebuild}
         />
       )}
 
@@ -212,16 +214,15 @@ function App() {
           <CommunityPage />
         </Route>
         <Route path="/orders">
-          <OrdersPage 
-                  orderRebuild={orderRebuild}
-                  setOrderRebuild={setOrderRebuild}/>
+          <OrdersPage
+            orderRebuild={orderRebuild}
+            setOrderRebuild={setOrderRebuild}
+          />
         </Route>
         <Route path="/shop">
           <ShopPage onAdd={onAdd} />
         </Route>
-        <Route path="/product">
-          <ProductPage />
-        </Route>
+
         <Route path="/">
           <HomePage />
         </Route>

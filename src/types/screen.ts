@@ -31,7 +31,7 @@ export interface ShopPageState{
 }
 /*ORDERS PAGE */
 export interface OrdersPageState {
-    pausedOrders:Order[] , 
+    pausedOrders:Order[];
     processOrders:Order[],
     finishedOrders:Order[]
 } 

@@ -49,11 +49,6 @@ export function NavbarHome(props: any) {
                   </NavLink>
                 </Box>
 
-                <Box className="hover" onClick={props.setPath}>
-                  <NavLink to="/product" activeClassName="underline">
-                    Product
-                  </NavLink>
-                </Box>
                 {props.verifiedMemberData ? (
                   <Box className="hover" onClick={props.setPath}>
                     <NavLink to="/orders" activeClassName="underline">
@@ -110,7 +105,7 @@ export function NavbarHome(props: any) {
                         onRemove={props.onRemove}
                         onDelete={props.onDelete}
                         onDeleteAll={props.onDeleteAll}
-
+                        setOrderRebuild={props.setOrderRebuild}
                       />
                     </Badge>
                   </IconButton>
