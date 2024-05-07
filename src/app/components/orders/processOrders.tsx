@@ -34,7 +34,7 @@ export default function ProcessOrders(props: any) {
   const finishOrderHandler = async (event: any) => {
     try {
       const order_id = event.target.value;
-      const data = { order_id: order_id, order_status: "DELETED" };
+      const data = { order_id: order_id, order_status: "FINISHED" };
       if (!localStorage.getItem("member_data")) {
         await sweetFailureProvider("Please login first", true);
       }
@@ -55,7 +55,7 @@ export default function ProcessOrders(props: any) {
   return (
     <TabPanel value="2">
       <Stack>
-        {processOrders.map((order) => {
+        {processOrders.map((order:Order) => {
           return (
             <Box className="order_main_box">
               <Box className="order_box_scroll">
@@ -70,10 +70,10 @@ export default function ProcessOrders(props: any) {
                       <p className="titleDish"> {product.product_name}</p>
                       <Box className="priceBox">
                         <p>${item.item_price}</p>
-                        <img src="/icons/Close.svg" alt="" />
-                        <p></p>
-                        <img src="/icons/Pause.svg" alt="" />
-                        <p style={{ marginLeft: "15px" }}>$15</p>
+                        <img src="/iconsfurnis/Close.svg" alt="" />
+                        <p>{item.item_quantity}</p>
+                        <img src="/iconsfurnis/Pause.svg" alt="" />
+                        <p style={{ marginLeft: "15px" }}>${item.item_price * item.item_quantity}</p>
                       </Box>
                     </Box>
                   );
@@ -84,14 +84,14 @@ export default function ProcessOrders(props: any) {
                   <p>Price of Product </p>
                   <p>${order.order_total_amount - order.order_delivery_cost}</p>
                   <img
-                    src="/icons/Plus.svg"
+                    src="/iconsfurnis/Plus.svg"
                     style={{ marginLeft: "20px" }}
                     alt=""
                   />
                   <p>Delivery Service</p>
                   <p>${order.order_delivery_cost}</p>
                   <img
-                    src="/icons/Pause.svg"
+                    src="/iconsfurnis/Pause.svg"
                     style={{ marginLeft: "20px" }}
                     alt=""
                   />

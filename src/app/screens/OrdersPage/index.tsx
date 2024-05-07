@@ -12,14 +12,15 @@ import { Fade } from "react-awesome-reveal";
 import { Order } from "../../../types/order";
 
 //REDUX
-import { useDispatch } from "react-redux";
-import { Dispatch } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch, createSelector } from "@reduxjs/toolkit";
 
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
 
 import OrderApiService from "../../apiServices/orderApiServices";
 import PausedOrders from "../../components/orders/pausedOrders";
 import { Member } from "../../../types/user";
+import { retrievePausedOrders } from "./selector";
 
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
@@ -28,7 +29,15 @@ const actionDispatch = (dispach: Dispatch) => ({
   setFinishedOrders: (data: Order[]) => dispach(setFinishedOrders(data)),
 });
 
+const pausedOrdersRetriever = createSelector(
+  retrievePausedOrders,
+  (pausedOrders) => ({
+    pausedOrders,
+  })
+);
 export function OrdersPage(props: any) {
+
+  const { pausedOrders } = useSelector(pausedOrdersRetriever);
   /*INITIALIZATIONS*/
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
@@ -41,7 +50,7 @@ const verifiedMemberData:Member | null = props.verifiedMemberData;
     //pausedOrders
     orderService
       .getMyOrders("paused")
-      .then((data) => setPausedOrders(data))
+      .then((data) =>setPausedOrders(data) )
       .catch((err) => console.log(err));
 
     //processOrders

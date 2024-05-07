@@ -25,7 +25,7 @@ export default function FinishedOrders(props: any) {
   return (
     <TabPanel value="3">
       <Stack>
-        {finishedOrders?.map((order: Order) => {
+        {finishedOrders.map((order: Order) => {
           return (
             <Box className="order_main_box">
               <Box className="order_box_scroll">
@@ -40,9 +40,9 @@ export default function FinishedOrders(props: any) {
                       <p className="titleDish">{product.product_name}</p>
                       <Box className="priceBox">
                         <p>${item.item_price}</p>
-                        <img src="/icons/Close.svg" alt="" />
+                        <img src="/iconsfurnis/Close.svg" alt="" />
                         <p>{item.item_quantity}</p>
-                        <img src="/icons/Pause.svg" alt="" />
+                        <img src="/iconsfurnis/Pause.svg" alt="" />
                         <p style={{ marginLeft: "15px" }}>
                           ${item.item_price * item.item_quantity}
                         </p>
@@ -56,14 +56,14 @@ export default function FinishedOrders(props: any) {
                   <p>Price of Product </p>
                   <p>${order.order_total_amount - order.order_delivery_cost}</p>
                   <img
-                    src="/icons/Plus.svg"
+                    src="/iconsfurnis/Plus.svg"
                     style={{ marginLeft: "20px" }}
                     alt=""
                   />
                   <p>Delivery Service</p>
                   <p>${order.order_delivery_cost}</p>
                   <img
-                    src="/icons/Pause.svg"
+                    src="/iconsfurnis/Pause.svg"
                     style={{ marginLeft: "20px" }}
                     alt=""
                   />

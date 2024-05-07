@@ -11,7 +11,7 @@ middleware:(getDefaultMiddleware) =>
   reducer: {
     homePage:homePageReducer,
     shopPage:ShopPageReducer,
-    orderPage:OrdersPageReducer
+    ordersPage:OrdersPageReducer
   },
 });
 

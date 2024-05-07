@@ -52,7 +52,6 @@ export default function Basket(props: any) {
       history.push("/orders");
     } catch (err:any) {
       console.log(err);
-      sweetErrorHandling(err).then();
     }
   };
 
@@ -74,7 +73,7 @@ export default function Basket(props: any) {
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
-        onClose={handleClose}
+        onClick={handleClose}
         // onClick={handleClose}
         PaperProps={{
           elevation: 0,

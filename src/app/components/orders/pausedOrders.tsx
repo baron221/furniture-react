@@ -28,7 +28,6 @@ const pausedOrdersRetriever = createSelector(
 export default function PausedOrders(props: any) {
   /*INITIALIZATION*/
   const { pausedOrders } = useSelector(pausedOrdersRetriever);
-
   /** HANDLERS**/
   const deleteOrderHandler = async (event: any) => {
     try {
@@ -64,12 +63,15 @@ export default function PausedOrders(props: any) {
       if (confirmation) {
         const orderService = new OrderApiService();
         orderService.updateOrderStatus(data);
+        props.setOrderRebuild(new Date())
+
       }
     } catch (err) {
-      console.log("deleteOrderhandler , ERROR::", err);
+      console.log("processOrderhandler , ERROR::", err);
       sweetErrorHandling(err).then();
     }
   };
+
   return (
     <Fade direction="left">
       <TabPanel value="1">
@@ -78,22 +80,22 @@ export default function PausedOrders(props: any) {
             return (
               <Box className="order_main_box">
                 <Box className="order_box_scroll">
-                  {order.order_items.map((item) => {
+                  {order?.order_items?.map((item) => {
                     const product: Product = order.product_data.filter(
-                      (ele) => ele._id === item.product_id
+                      (ele) => ele._id === item?.product_id
                     )[0];
                     const image_path = `${serviceApi}/ ${product.product_images[0]}`;
                     return (
                       <Box className="ordersName_price">
                         <img className="orderDishImg" src={image_path} alt="" />
-                        <p className="titleDish">{product.product_name}</p>
+                        <p className="titleDish">{product?.product_name}</p>
                         <Box className="priceBox">
-                          <p>${item.item_price}</p>
-                          <img src="/icons/Close.svg" alt="" />
-                          <p>{item.item_quantity}</p>
-                          <img src="/icons/Pause.svg" alt="" />
+                          <p>${item?.item_price}</p>
+                          <img src="/iconsfurnis/Close.svg" alt="" />
+                          <p>{item?.item_quantity}</p>
+                          <img src="/iconsfurnis/Pause.svg" alt="" />
                           <p style={{ marginLeft: "15px" }}>
-                            ${item.item_price * item.item_quantity}
+                            ${item?.item_price * item?.item_quantity}
                           </p>
                         </Box>
                       </Box>
@@ -104,25 +106,25 @@ export default function PausedOrders(props: any) {
                   <Box className="boxTotal">
                     <p>Price of Product</p>
                     <p>
-                      ${order.order_total_amount - order.order_delivery_cost}
+                      ${order?.order_total_amount - order?.order_delivery_cost}
                     </p>
                     <img
-                      src="/icons/Plus.svg"
+                      src="/iconsfurnis/Plus.svg"
                       style={{ marginLeft: "20px" }}
                       alt=""
                     />
                     <p>Delivery Service </p>
-                    <p>${order.order_delivery_cost}</p>
+                    <p>${order?.order_delivery_cost}</p>
                     <img
-                      src="/icons/Pause.svg"
+                      src="/iconsfurnis/Pause.svg"
                       style={{ marginLeft: "20px" }}
                       alt=""
                     />
                     <p>All</p>
-                    <p>${order.order_total_amount}</p>
+                    <p>${order?.order_total_amount}</p>
 
                     <Button
-                      value={order._id}
+                      value={order?._id}
                       onClick={deleteOrderHandler}
                       variant="contained"
                       sx={{ mx: "25px" }}
@@ -132,7 +134,7 @@ export default function PausedOrders(props: any) {
                       Cancel
                     </Button>
                     <Button
-                      value={order._id}
+                      value={order?._id}
                       onClick={processOrderHandler}
                       variant="contained"
                       style={{ borderRadius: "10px" }}
