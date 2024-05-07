@@ -5,5 +5,5 @@ import { CommunityPage } from ".";
 const selectCommunityPage = (state:AppRootState) => state.communityPage;
 export const retrieveTargetArticles = createSelector(
     selectCommunityPage,
-    (CommunityPage) => CommunityPage.TargetArticles
+    (CommunityPage) => CommunityPage.TargetArticle
 )

@@ -3,7 +3,7 @@ import { CommunityPageState } from "../../../types/screen";
 import { setTrendBoArticles } from "../HomePage/slice";
 
 const initialState:CommunityPageState = {
-    TargetArticles:[],
+    TargetArticle:[],
 };
 
 const communityPageSlice = createSlice({
@@ -11,12 +11,12 @@ const communityPageSlice = createSlice({
     initialState,
     reducers:{
         setTargetArticles : (state,action) =>{
-            state.TargetArticles = action.payload;
+            state.TargetArticle = action.payload;
         }
     }
 });
 
-export const {} = communityPageSlice.actions;
+export const {setTargetArticles} = communityPageSlice.actions;
 
 const communityPageReducer = communityPageSlice.reducer;
 export default communityPageReducer

@@ -17,3 +17,12 @@ export interface Community{
     me_liked:MeLiked[];  
 
 }
+
+export interface SearchArticlesObj {
+    page: number;
+    limit:number;
+    bo_id:string;
+    order?:number | null;
+
+
+}

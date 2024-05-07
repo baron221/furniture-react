@@ -41,6 +41,6 @@ export interface OrdersPageState {
 /*COMMUNITY PAGE*/
 
 export interface CommunityPageState{
-    TargetArticles:Community[];
+    TargetArticle:Community[];
 
 }

@@ -3,6 +3,8 @@ import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { Checkbox } from "@mui/material";
 import moment from "moment";
+import { Community } from "../../../types/Communtiy";
+import { serviceApi } from "../../../lib/config";
 
 export function TargetArticles(props: any) {
   const { setArticlesRebuild } = props;
@@ -10,12 +12,12 @@ export function TargetArticles(props: any) {
 
   return (
     <Stack>
-      {props.targetBoArticles?.map((article: any, index: string) => {
-        const art_img_url = "/iconsfurnis/image.png";
+      {props.targetBoArticles?.map((article: Community) => {
+        const art_img_url = article?.art_image ? `${serviceApi}/${article?.art_image}` : "/iconsfurnis/image.png";
         return (
           <Link
             className="all_article_box"
-            sx={{ textDecoration: "none" }}
+            sx={{ textDecoration: "none"  }}
             href={""}
           >
             <Box
@@ -32,15 +34,15 @@ export function TargetArticles(props: any) {
                   style={{ borderRadius: "50%", backgroundSize: "cover" }}
                   alt=""
                 />
-                <span className="all_article_author_user">BARON </span>
+                <span className="all_article_author_user">{article?.member_data?.mb_nick} </span>
               </Box>
               <Box
                 display={"flex"}
                 flexDirection={"column"}
                 sx={{ mt: "15px" }}
               >
-                <span className="all_article_title">Furniture</span>
-                <p className="all_article_desc">Ikea shop</p>
+                <span className="all_article_title">{article?.bo_id}</span>
+                <p className="all_article_desc">{article?.art_subject}</p>
               </Box>
               <Box>
                 <Stack className="article_share">
@@ -66,9 +68,12 @@ export function TargetArticles(props: any) {
                       <Checkbox
                         icon={<FavoriteBorder />}
                         checkedIcon={<Favorite style={{ color: "red" }} />}
+                        id={article?._id}
+                        /*@ts-ignore */
                         checked={false}
+
                       />
-                      <span style={{ marginRight: "18px" }}></span>
+                      <span style={{ marginRight: "18px" }}>{article?.art_likes}</span>
                     </div>
                     <div
                       style={{
@@ -78,7 +83,7 @@ export function TargetArticles(props: any) {
                       }}
                     >
                       <RemoveRedEyeIcon sx={{ mr: "10px" }} />
-                      <span style={{ marginRight: "18px" }}>{}</span>
+                      <span style={{ marginRight: "18px" }}>{article.art_views}</span>
                     </div>
                   </Box>
                 </Stack>

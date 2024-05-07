@@ -13,19 +13,70 @@ import { TabPanel } from "@material-ui/lab";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { TargetArticles } from "./targetArticles";
 import "../../../css/community.css";
+import CommunityApiService from "../../apiServices/communityApiService";
+import { Community, SearchArticlesObj } from "../../../types/Communtiy";
+
+//REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+
+import { setTargetArticles } from "./slice";
+import { retrieveTargetArticles } from "./selector";
+
+/**REDUX SLICE */
+const actionDispatch = (dispach: Dispatch) => ({
+  setTargetArticles: (data: Community[]) => dispach(setTargetArticles(data)),
+});
+
+/**REDUX SELECTOR */
+const TargetArticlesRetriever = createSelector(
+  retrieveTargetArticles,
+  (TargetArticle) => ({ TargetArticle })
+);
 
 export function CommunityPage() {
+  /**INITIALIZATIONS */
+  const { setTargetArticles } = actionDispatch(useDispatch());
+  const { TargetArticle } = useSelector(TargetArticlesRetriever);
+
   const [value, setValue] = useState("1");
+  const [searchArticlesObj, setSearchArticlesObj] = useState<SearchArticlesObj>(
+    { bo_id: "all", page: 1, limit: 5 }
+  );
+
+  useEffect(() => {
+    const communityService = new CommunityApiService();
+    communityService
+      .getTargetArticles(searchArticlesObj)
+      .then((data) => setTargetArticles(data))
+      .catch((err) => console.log(err));
+  }, [searchArticlesObj]);
 
   const handlePaginationChange = (event: any, value: number) => {
-    console.log(value);
+    searchArticlesObj.page = value;
+    setSearchArticlesObj({ ...searchArticlesObj });
   };
   const [articlesRebuild, setArticlesRebuild] = useState<Date>(new Date());
   const handleChange = (event: any, newValue: string) => {
+    searchArticlesObj.page = 1;
+    switch (newValue) {
+      case "1":
+        searchArticlesObj.bo_id = "all";
+        break;
+      case "2":
+        searchArticlesObj.bo_id = "popular";
+        break;
+      case "3":
+        searchArticlesObj.bo_id = "celebrity";
+        break;
+      case "4":
+        searchArticlesObj.bo_id = "story";
+        break;
+    }
+    setSearchArticlesObj({ ...searchArticlesObj });
     setValue(newValue);
   };
-
-  const targetBoArticles = [1, 2, 3, 4];
 
   return (
     <div className="community_page">
@@ -56,25 +107,25 @@ export function CommunityPage() {
                 <Box className="articel_main">
                   <TabPanel value="1">
                     <TargetArticles
-                      targetBoArticles={targetBoArticles}
+                      targetBoArticles={TargetArticle}
                       setArticlesRebuild={setArticlesRebuild}
                     />
                   </TabPanel>
                   <TabPanel value="2">
                     <TargetArticles
-                      targetBoArticles={targetBoArticles}
+                      targetBoArticles={TargetArticle}
                       setArticlesRebuild={setArticlesRebuild}
                     />
                   </TabPanel>
                   <TabPanel value="3">
                     <TargetArticles
-                      targetBoArticles={targetBoArticles}
+                      targetBoArticles={TargetArticle}
                       setArticlesRebuild={setArticlesRebuild}
                     />
                   </TabPanel>
                   <TabPanel value="4">
                     <TargetArticles
-                      targetBoArticles={targetBoArticles}
+                      targetBoArticles={TargetArticle}
                       setArticlesRebuild={setArticlesRebuild}
                     />
                   </TabPanel>

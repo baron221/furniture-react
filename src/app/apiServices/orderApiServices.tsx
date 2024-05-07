@@ -53,7 +53,9 @@ class OrderApiService {
   async updateOrderStatus(data: any) {
     try {
       const url = `/orders/edit`,
-        result = await axios.post(this.path + url,data, { withCredentials: true });
+        result = await axios.post(this.path + url, data, {
+          withCredentials: true,
+        });
 
       assert.ok(result?.data, Definer.general_err2);
       assert.ok(result?.data?.state != "fail", result?.data?.message);
