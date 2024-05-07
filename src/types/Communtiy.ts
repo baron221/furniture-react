@@ -4,7 +4,7 @@ import { Member } from "./user";
 export interface Community{
     _id:string;
     art_subject:string;
-    art_image:string;
+    art_image?:string | null;
     art_content: string;
     bo_id:string;
     art_status: string;

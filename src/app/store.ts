@@ -3,6 +3,7 @@ import homePageReducer from './screens/HomePage/slice';
 import reduxLogger from "redux-logger"
 import ShopPageReducer from './screens/ShopPage/slice';
 import OrdersPageReducer from './screens/OrdersPage/slice';
+import communityPageReducer from './screens/CommunityPage/slice';
 
 
 export const store = configureStore({
@@ -11,7 +12,8 @@ middleware:(getDefaultMiddleware) =>
   reducer: {
     homePage:homePageReducer,
     shopPage:ShopPageReducer,
-    ordersPage:OrdersPageReducer
+    ordersPage:OrdersPageReducer,
+    communityPage:communityPageReducer
   },
 });
 

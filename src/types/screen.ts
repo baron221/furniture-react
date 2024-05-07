@@ -1,3 +1,4 @@
+import { TargetArticles } from "../app/screens/CommunityPage/targetArticles";
 import { Community } from "./Communtiy";
 import { Order } from "./order";
 import { Product } from "./product";
@@ -7,6 +8,7 @@ export interface AppRootState {
     homePage:HomePageState;
     shopPage:ShopPageState;
     ordersPage:OrdersPageState
+    communityPage:CommunityPageState
 }
 
 /**HOMEPAGE */
@@ -35,3 +37,10 @@ export interface OrdersPageState {
     processOrders:Order[],
     finishedOrders:Order[]
 } 
+
+/*COMMUNITY PAGE*/
+
+export interface CommunityPageState{
+    TargetArticles:Community[];
+
+}
