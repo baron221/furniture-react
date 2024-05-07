@@ -1,14 +1,16 @@
 import { TargetArticles } from "../app/screens/CommunityPage/targetArticles";
 import { Community } from "./Communtiy";
+import { Follower, Following } from "./follow";
 import { Order } from "./order";
 import { Product } from "./product";
-import { Market } from "./user";
+import { Market, Member } from "./user";
 
 export interface AppRootState {
     homePage:HomePageState;
     shopPage:ShopPageState;
-    ordersPage:OrdersPageState
-    communityPage:CommunityPageState
+    ordersPage:OrdersPageState;
+    communityPage:CommunityPageState;
+    memberPage:MemberPageState
 }
 
 /**HOMEPAGE */
@@ -43,4 +45,11 @@ export interface OrdersPageState {
 export interface CommunityPageState{
     TargetArticle:Community[];
 
+}
+export interface MemberPageState{
+    chosenMember:Member | null;
+    chosenMemberBoArticles :Community[];
+    chosenSingleBoArticle:Community | null;
+    memberFollowers :Follower[];
+    memberFollowings : Following[]
 }

@@ -40,11 +40,7 @@ export function NavbarShop(props: any) {
               </NavLink>
             </Box>
 
-            <Box className="hover" onClick={props.setPath}>
-              <NavLink to="/product" activeClassName="underline">
-                Product
-              </NavLink>
-            </Box>
+
             <Box className="hover" onClick={props.setPath}>
               <NavLink to="/orders" activeClassName="underline">
                 Orders
