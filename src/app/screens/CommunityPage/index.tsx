@@ -39,7 +39,7 @@ export function CommunityPage() {
   /**INITIALIZATIONS */
   const { setTargetArticles } = actionDispatch(useDispatch());
   const { TargetArticle } = useSelector(TargetArticlesRetriever);
-
+  const [articlesRebuild, setArticlesRebuild] = useState<Date>(new Date());
   const [value, setValue] = useState("1");
   const [searchArticlesObj, setSearchArticlesObj] = useState<SearchArticlesObj>(
     { bo_id: "all", page: 1, limit: 5 }
@@ -51,13 +51,13 @@ export function CommunityPage() {
       .getTargetArticles(searchArticlesObj)
       .then((data) => setTargetArticles(data))
       .catch((err) => console.log(err));
-  }, [searchArticlesObj]);
+  }, [searchArticlesObj , articlesRebuild]);
 
   const handlePaginationChange = (event: any, value: number) => {
     searchArticlesObj.page = value;
     setSearchArticlesObj({ ...searchArticlesObj });
   };
-  const [articlesRebuild, setArticlesRebuild] = useState<Date>(new Date());
+  
   const handleChange = (event: any, newValue: string) => {
     searchArticlesObj.page = 1;
     switch (newValue) {
