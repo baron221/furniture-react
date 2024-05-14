@@ -21,8 +21,54 @@ import { TuiEditor } from "../../components/tuiEditor/TuiEditor";
 import TViewer from "../../components/tuiEditor/Tviewer";
 import { Mysettings } from "./mySettings";
 
+/*REDUX*/
+import { Member } from "../../../types/user";
+import {
+  setChosenMember,
+  setChosenMemberBoArticles,
+  setChosenSingleBoArticle,
+} from "./slice";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+import { useDispatch, useSelector } from "react-redux";
+import { Community } from "../../../types/Communtiy";
+import { retrieveChosenMember, retrieveChosenMemberBoArticles, retrieveChosenSingleBoArticle } from "./selector";
+
+/**REDUX SLICE */
+const actionDispatch = (dispach: Dispatch) => ({
+  setChosenMember: (data: Member[]) => dispach(setChosenMember(data)),
+  setChosenMemberBoArticles: (data: Community[]) =>
+    dispach(setChosenMemberBoArticles(data)),
+  setChosenSingleBoArticle: (data: Community[]) =>
+    dispach(setChosenSingleBoArticle(data)),
+});
+
+/**REDUX SELECTOR */
+const chosenMemberRetriever = createSelector(
+  retrieveChosenMember,
+  (chosenMember) => ({ chosenMember })
+);
+
+const chosenMemberBoArticlesRetriever = createSelector(
+  retrieveChosenMemberBoArticles,
+  (ChosenMemberBoArticles) => ({ ChosenMemberBoArticles })
+);
+
+const chosenSingleBoArticleRetriever = createSelector(
+  retrieveChosenSingleBoArticle,
+  (ChosenSingleBoArticle) => ({ ChosenSingleBoArticle })
+);
+
 export function VisitMyPage(props: any) {
   // INITIALIZATIONS
+  const {
+    setChosenMember,
+    setChosenMemberBoArticles,
+    setChosenSingleBoArticle,
+  } = actionDispatch(useDispatch());
+const {chosenMember} =useSelector(chosenMemberRetriever);
+const {ChosenMemberBoArticles} = useSelector(chosenMemberBoArticlesRetriever);
+
 
   const [value, setValue] = React.useState("1");
   const handleChange = (event: any, newValue: string) => {
@@ -68,28 +114,20 @@ export function VisitMyPage(props: any) {
                 <TabPanel value="2">
                   <Box className="menu_name">Followers</Box>
                   <Box className="menu_content">
-                    <MemberFollowers
-                      actions_enoubled={true}
-                    />
+                    <MemberFollowers actions_enoubled={true} />
                   </Box>
                 </TabPanel>
                 <TabPanel value="3">
                   <Box className="menu_name">Following</Box>
                   <Box className="menu_content">
-                    <MemberFollowing
-                  
-                      actions_enoubled={true}
-                    />
+                    <MemberFollowing actions_enoubled={true} />
                   </Box>
                 </TabPanel>
                 <TabPanel value="4">
                   <Box className="menu_name"> Write Article</Box>
                   <Box className="menu_content">
                     <Box className="write_content">
-                      <TuiEditor
-                        setValue={setValue}
-                    
-                      />
+                      <TuiEditor setValue={setValue} />
                     </Box>
                   </Box>
                 </TabPanel>
@@ -97,8 +135,10 @@ export function VisitMyPage(props: any) {
                   <Box className="menu_name">Chosen article</Box>
                   <Box className="menu_content">
                     <Box className="write_content">
-                      <TViewer text="<div>Assalamualaykum
-                    </div>" />
+                      <TViewer
+                        text="<div>Assalamualaykum
+                    </div>"
+                      />
                     </Box>
                   </Box>
                 </TabPanel>
@@ -127,19 +167,11 @@ export function VisitMyPage(props: any) {
                       alt=""
                     />
                     <div className="order_user_icon_box">
-                      <img
-                        src={
-                         "/iconsfurnis/user.png"
-                        }
-                        alt=""
-                      />
+                      <img src={"/iconsfurnis/user.png"} alt="" />
                     </div>
                   </div>
-                  <span className="order_user_name">
-                        MuhammadAyyub
-                  </span>
-                  <span className="order_user_prof">
-                  </span>
+                  <span className="order_user_name">MuhammadAyyub</span>
+                  <span className="order_user_prof"></span>
                 </Box>
                 <Box className="user_media_box">
                   <FacebookIcon />
@@ -148,17 +180,10 @@ export function VisitMyPage(props: any) {
                   <YoutubeIcon />
                 </Box>
                 <Box className="user_media_box">
-                  <p className="follows">
-                    Followers: 2
-                  </p>
-                  <p className="follows">
-                    Followings: 10
-                  </p>
+                  <p className="follows">Followers: 2</p>
+                  <p className="follows">Followings: 10</p>
                 </Box>
-                <p className="user_desc">
-           
-                    "There is no addtional information"
-                </p>
+                <p className="user_desc">"There is no addtional information"</p>
                 <Box
                   display={"flex"}
                   justifyContent={"flex-end"}
@@ -173,16 +198,15 @@ export function VisitMyPage(props: any) {
                           variant="contained"
                           onClick={() => setValue("4")}
                         >
-Write Article                        </Button>
+                          Write Article{" "}
+                        </Button>
                       )}
                     />
                   </TabList>
                 </Box>
               </Box>
-              <Box className="my_page_menu" >
-                <Box 
-                display={'flex'} flexDirection={'column'}
-                >
+              <Box className="my_page_menu">
+                <Box display={"flex"} flexDirection={"column"}>
                   <Tab
                     style={{ flexDirection: "column" }}
                     value={"1"}

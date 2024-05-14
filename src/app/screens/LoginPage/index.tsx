@@ -12,7 +12,7 @@ function useQuery() {
 }
 
 export function LoginPage(props: any) {
-
+const {verifiedMemberData}= props;
     let shop = useRouteMatch();
     const query = useQuery();
 
@@ -22,11 +22,11 @@ export function LoginPage(props: any) {
         <div className="restaurant_page">
             <Switch>
                 <Route path={`${shop.path}/other`}>
-                    <VisitOtherPage />
+                    <VisitOtherPage verifiedMemberData={verifiedMemberData} />
 
                 </Route>
                 <Route path={`${shop.path}`}>
-                    <VisitMyPage />
+                    <VisitMyPage verifiedMemberData={verifiedMemberData} />
                 </Route>
             </Switch>
         </div>

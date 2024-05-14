@@ -18,13 +18,59 @@ import { MemberFollowers } from "./memberFollowers";
 import { MemberFollowing } from "./memberFollowing";
 
 
+/*REDUX*/
+import { Member } from "../../../types/user";
+import {
+  setChosenMember,
+  setChosenMemberBoArticles,
+  setChosenSingleBoArticle,
+} from "./slice";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+import { useDispatch, useSelector } from "react-redux";
+import { Community } from "../../../types/Communtiy";
+import { retrieveChosenMember, retrieveChosenMemberBoArticles, retrieveChosenSingleBoArticle } from "./selector";
+
+/**REDUX SLICE */
+const actionDispatch = (dispach: Dispatch) => ({
+  setChosenMember: (data: Member[]) => dispach(setChosenMember(data)),
+  setChosenMemberBoArticles: (data: Community[]) =>
+    dispach(setChosenMemberBoArticles(data)),
+  setChosenSingleBoArticle: (data: Community[]) =>
+    dispach(setChosenSingleBoArticle(data)),
+});
+
+/**REDUX SELECTOR */
+const chosenMemberRetriever = createSelector(
+  retrieveChosenMember,
+  (chosenMember) => ({ chosenMember })
+);
+
+const chosenMemberBoArticlesRetriever = createSelector(
+  retrieveChosenMemberBoArticles,
+  (ChosenMemberBoArticles) => ({ ChosenMemberBoArticles })
+);
+
+const chosenSingleBoArticleRetriever = createSelector(
+  retrieveChosenSingleBoArticle,
+  (ChosenSingleBoArticle) => ({ ChosenSingleBoArticle })
+);
+
 
 const handlePaginationChange = (event: any, value: number) => {
     console.log(value);
   };
 
 export function VisitOtherPage(props: any) {
+  const {
+    setChosenMember,
+    setChosenMemberBoArticles,
+    setChosenSingleBoArticle,
+  } = actionDispatch(useDispatch());
+const {chosenMember} =useSelector(chosenMemberRetriever);
+const {ChosenMemberBoArticles} = useSelector(chosenMemberBoArticlesRetriever);
   const [value, setValue] = useState("1");
+
 
 
   return (
