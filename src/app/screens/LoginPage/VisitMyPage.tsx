@@ -31,15 +31,25 @@ import {
 import { Dispatch } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { useDispatch, useSelector } from "react-redux";
-import { Community } from "../../../types/Communtiy";
-import { retrieveChosenMember, retrieveChosenMemberBoArticles, retrieveChosenSingleBoArticle } from "./selector";
+import { Community, SearchMemberArticlesObj } from "../../../types/Communtiy";
+import {
+  retrieveChosenMember,
+  retrieveChosenMemberBoArticles,
+  retrieveChosenSingleBoArticle,
+} from "./selector";
+import {
+  sweetErrorHandling,
+  sweetFailureProvider,
+} from "../../../lib/sweetAlert";
+import CommunityApiService from "../../apiServices/communityApiService";
+import MemberApiService from "../../apiServices/memberApiServices";
 
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
-  setChosenMember: (data: Member[]) => dispach(setChosenMember(data)),
+  setChosenMember: (data: Member) => dispach(setChosenMember(data)),
   setChosenMemberBoArticles: (data: Community[]) =>
     dispach(setChosenMemberBoArticles(data)),
-  setChosenSingleBoArticle: (data: Community[]) =>
+  setChosenSingleBoArticle: (data: Community) =>
     dispach(setChosenSingleBoArticle(data)),
 });
 
@@ -51,30 +61,70 @@ const chosenMemberRetriever = createSelector(
 
 const chosenMemberBoArticlesRetriever = createSelector(
   retrieveChosenMemberBoArticles,
-  (ChosenMemberBoArticles) => ({ ChosenMemberBoArticles })
+  (chosenMemberBoArticles) => ({ chosenMemberBoArticles })
 );
 
 const chosenSingleBoArticleRetriever = createSelector(
   retrieveChosenSingleBoArticle,
-  (ChosenSingleBoArticle) => ({ ChosenSingleBoArticle })
+  (chosenSingleBoArticle) => ({ chosenSingleBoArticle })
 );
 
 export function VisitMyPage(props: any) {
   // INITIALIZATIONS
+  const { verifiedMemberData } = props;
   const {
     setChosenMember,
     setChosenMemberBoArticles,
     setChosenSingleBoArticle,
   } = actionDispatch(useDispatch());
-const {chosenMember} =useSelector(chosenMemberRetriever);
-const {ChosenMemberBoArticles} = useSelector(chosenMemberBoArticlesRetriever);
-
-
+  const { chosenMember } = useSelector(chosenMemberRetriever);
+  const { chosenMemberBoArticles } = useSelector(
+    chosenMemberBoArticlesRetriever
+  );
+const [articlesRebuild,setArticlesRebuild] = useState<Date>(new Date())
   const [value, setValue] = React.useState("1");
+
+  const [memberArticleSearchObj, setMemberArticleSearchObj] =
+    useState<SearchMemberArticlesObj>({ mb_id: "none", page: 1, limit: 5 });
+
+  useEffect(() => {
+    if (!localStorage.getItem("member_data")) {
+      sweetFailureProvider("Please login first", true, true);
+    }
+    const communityService = new CommunityApiService();
+    const memberService = new MemberApiService();
+
+    communityService
+      .getMemberCommunityArticles(memberArticleSearchObj)
+      .then((data) => setChosenMemberBoArticles(data))
+      .catch((err) => console.log(err));
+    memberService
+      .getChosenMember(verifiedMemberData?._id)
+      .then((data) => setChosenMember(data))
+      .catch((err) => console.log(err));
+  }, [memberArticleSearchObj,articlesRebuild]);
+
+  /*HANDLERS*/
   const handleChange = (event: any, newValue: string) => {
     setValue(newValue);
   };
+  const handlePaginationChange = (event: any, value: number) => {
+    memberArticleSearchObj.page = value;
+    setMemberArticleSearchObj({ ...memberArticleSearchObj });
+  };
 
+  const renderChosenArticleHandler = async (art_id: string) => {
+    try {
+      const communityService = new CommunityApiService();
+      communityService
+        .getChosenArticle(art_id)
+        .then((data) => setChosenSingleBoArticle(data))
+        .catch((err) => console.log(err));
+    } catch (err: any) {
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  };
   return (
     <div className="my_page">
       <Container maxWidth="lg" sx={{ mt: "50px", mb: "50px" }}>
@@ -85,7 +135,11 @@ const {ChosenMemberBoArticles} = useSelector(chosenMemberBoArticlesRetriever);
                 <TabPanel value="1">
                   <Box className="menu_name">My Articles</Box>
                   <Box className="menu_content">
-                    <MemberPosts />
+                    <MemberPosts
+                      chosenMemberBoArticles={chosenMemberBoArticles}
+                      renderChosenArticleHandler={renderChosenArticleHandler}
+                      setArticlesRebuild={setArticlesRebuild}
+                    />
                     <Stack
                       sx={{ my: "40px" }}
                       direction={"row"}
@@ -106,6 +160,7 @@ const {ChosenMemberBoArticles} = useSelector(chosenMemberBoArticlesRetriever);
                               color="secondary"
                             />
                           )}
+                          onChange={handlePaginationChange}
                         />
                       </Box>
                     </Stack>

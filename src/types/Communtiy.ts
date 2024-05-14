@@ -26,3 +26,8 @@ export interface SearchArticlesObj {
 
 
 }
+export interface SearchMemberArticlesObj {
+    page: number;
+    limit:number;
+    mb_id:string;
+}
