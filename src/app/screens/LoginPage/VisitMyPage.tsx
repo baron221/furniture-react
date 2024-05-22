@@ -81,7 +81,8 @@ export function VisitMyPage(props: any) {
   const { chosenMemberBoArticles } = useSelector(
     chosenMemberBoArticlesRetriever
   );
-const [articlesRebuild,setArticlesRebuild] = useState<Date>(new Date())
+  const [articlesRebuild, setArticlesRebuild] = useState<Date>(new Date());
+  const [followRebuild,setFollowRebuild] = useState<boolean>(false)
   const [value, setValue] = React.useState("1");
 
   const [memberArticleSearchObj, setMemberArticleSearchObj] =
@@ -102,7 +103,7 @@ const [articlesRebuild,setArticlesRebuild] = useState<Date>(new Date())
       .getChosenMember(verifiedMemberData?._id)
       .then((data) => setChosenMember(data))
       .catch((err) => console.log(err));
-  }, [memberArticleSearchObj,articlesRebuild]);
+  }, [memberArticleSearchObj, articlesRebuild]);
 
   /*HANDLERS*/
   const handleChange = (event: any, newValue: string) => {
@@ -148,8 +149,8 @@ const [articlesRebuild,setArticlesRebuild] = useState<Date>(new Date())
                     >
                       <Box className="bottom_box">
                         <Pagination
-                          count={3}
-                          page={1}
+                          count={memberArticleSearchObj.page >=3 ? memberArticleSearchObj.page + 1 : 3}
+                          page={memberArticleSearchObj?.page}
                           renderItem={(item) => (
                             <PaginationItem
                               components={{
@@ -169,13 +170,22 @@ const [articlesRebuild,setArticlesRebuild] = useState<Date>(new Date())
                 <TabPanel value="2">
                   <Box className="menu_name">Followers</Box>
                   <Box className="menu_content">
-                    <MemberFollowers actions_enoubled={true} />
+                    <MemberFollowers
+                      actions_enoubled={true}
+                      mb_id={props?.verifiedMemberData?._id}
+                      setFollowRebuild={setFollowRebuild}
+                    />
                   </Box>
                 </TabPanel>
                 <TabPanel value="3">
                   <Box className="menu_name">Following</Box>
                   <Box className="menu_content">
-                    <MemberFollowing actions_enoubled={true} />
+                    <MemberFollowing
+                      actions_enoubled={true}
+                      mb_id={props.verifiedMemberData?._id}
+                      setFollowRebuild={setFollowRebuild}
+                      followRebuild={followRebuild}    
+                    />
                   </Box>
                 </TabPanel>
                 <TabPanel value="4">
@@ -222,11 +232,22 @@ const [articlesRebuild,setArticlesRebuild] = useState<Date>(new Date())
                       alt=""
                     />
                     <div className="order_user_icon_box">
-                      <img src={"/iconsfurnis/user.png"} alt="" />
+                      <img
+                        src={
+                          chosenMember?.mb_type === "MARKET"
+                            ? "/iconsfurnis/market.png"
+                            : "/iconsfurnis/user.png"
+                        }
+                        alt=""
+                      />
                     </div>
                   </div>
-                  <span className="order_user_name">MuhammadAyyub</span>
-                  <span className="order_user_prof"></span>
+                  <span className="order_user_name">
+                    {chosenMember?.mb_nick}
+                  </span>
+                  <span className="order_user_prof">
+                    {chosenMember?.mb_type}
+                  </span>
                 </Box>
                 <Box className="user_media_box">
                   <FacebookIcon />
@@ -235,8 +256,8 @@ const [articlesRebuild,setArticlesRebuild] = useState<Date>(new Date())
                   <YoutubeIcon />
                 </Box>
                 <Box className="user_media_box">
-                  <p className="follows">Followers: 2</p>
-                  <p className="follows">Followings: 10</p>
+                  <p className="follows" >Followers: {chosenMember?.mb_subscriber_cnt} </p>
+                  <p className="follows">Followings:{chosenMember?.mb_follow_cnt} </p>
                 </Box>
                 <p className="user_desc">"There is no addtional information"</p>
                 <Box
