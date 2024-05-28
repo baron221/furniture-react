@@ -81,8 +81,9 @@ export function VisitMyPage(props: any) {
   const { chosenMemberBoArticles } = useSelector(
     chosenMemberBoArticlesRetriever
   );
+  const { chosenSingleBoArticle } = useSelector(chosenSingleBoArticleRetriever);
   const [articlesRebuild, setArticlesRebuild] = useState<Date>(new Date());
-  const [followRebuild,setFollowRebuild] = useState<boolean>(false)
+  const [followRebuild, setFollowRebuild] = useState<boolean>(false);
   const [value, setValue] = React.useState("1");
 
   const [memberArticleSearchObj, setMemberArticleSearchObj] =
@@ -119,7 +120,10 @@ export function VisitMyPage(props: any) {
       const communityService = new CommunityApiService();
       communityService
         .getChosenArticle(art_id)
-        .then((data) => setChosenSingleBoArticle(data))
+        .then((data) => {
+          setChosenSingleBoArticle(data);
+          setValue("5");
+        })
         .catch((err) => console.log(err));
     } catch (err: any) {
       console.log(err);
@@ -149,7 +153,11 @@ export function VisitMyPage(props: any) {
                     >
                       <Box className="bottom_box">
                         <Pagination
-                          count={memberArticleSearchObj.page >=3 ? memberArticleSearchObj.page + 1 : 3}
+                          count={
+                            memberArticleSearchObj.page >= 3
+                              ? memberArticleSearchObj.page + 1
+                              : 3
+                          }
                           page={memberArticleSearchObj?.page}
                           renderItem={(item) => (
                             <PaginationItem
@@ -184,7 +192,7 @@ export function VisitMyPage(props: any) {
                       actions_enoubled={true}
                       mb_id={props.verifiedMemberData?._id}
                       setFollowRebuild={setFollowRebuild}
-                      followRebuild={followRebuild}    
+                      followRebuild={followRebuild}
                     />
                   </Box>
                 </TabPanel>
@@ -200,10 +208,7 @@ export function VisitMyPage(props: any) {
                   <Box className="menu_name">Chosen article</Box>
                   <Box className="menu_content">
                     <Box className="write_content">
-                      <TViewer
-                        text="<div>Assalamualaykum
-                    </div>"
-                      />
+                      <TViewer chosenSingleBoArticle={chosenSingleBoArticle} />
                     </Box>
                   </Box>
                 </TabPanel>
@@ -256,8 +261,12 @@ export function VisitMyPage(props: any) {
                   <YoutubeIcon />
                 </Box>
                 <Box className="user_media_box">
-                  <p className="follows" >Followers: {chosenMember?.mb_subscriber_cnt} </p>
-                  <p className="follows">Followings:{chosenMember?.mb_follow_cnt} </p>
+                  <p className="follows">
+                    Followers: {chosenMember?.mb_subscriber_cnt}{" "}
+                  </p>
+                  <p className="follows">
+                    Followings:{chosenMember?.mb_follow_cnt}{" "}
+                  </p>
                 </Box>
                 <p className="user_desc">"There is no addtional information"</p>
                 <Box

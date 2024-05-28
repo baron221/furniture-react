@@ -68,7 +68,7 @@ export function MemberFollowers(props: any) {
       const followService = new FollowApiService();
       await followService.subscribe(id);
       await sweetTopSmallSuccessAlert("subscribed successfully", 700, false);
-      setFollowRebuild(!followRebuild);
+      setFollowRebuild(followRebuild);
     } catch (err) {
       console.log(err);
       sweetErrorHandling(err).then();
