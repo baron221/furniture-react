@@ -1,6 +1,12 @@
 import { MeLiked } from "./product";
 import { Member } from "./user";
 
+export interface CommunityArticleInput{
+    art_subject:string;
+    art_content:string;
+    art_image:string;
+    bo_id:string
+}
 export interface Community{
     _id:string;
     art_subject:string;

@@ -100,8 +100,7 @@ export function VisitMyPage(props: any) {
       .getMemberCommunityArticles(memberArticleSearchObj)
       .then((data) => setChosenMemberBoArticles(data))
       .catch((err) => console.log(err));
-    memberService
-      .getChosenMember(verifiedMemberData?._id)
+    memberService.getChosenMember(verifiedMemberData?._id)
       .then((data) => setChosenMember(data))
       .catch((err) => console.log(err));
   }, [memberArticleSearchObj, articlesRebuild]);
@@ -200,7 +199,8 @@ export function VisitMyPage(props: any) {
                   <Box className="menu_name"> Write Article</Box>
                   <Box className="menu_content">
                     <Box className="write_content">
-                      <TuiEditor setValue={setValue} />
+                      <TuiEditor setValue={setValue}
+                      setArticlesRebuild={setArticlesRebuild}/>
                     </Box>
                   </Box>
                 </TabPanel>
