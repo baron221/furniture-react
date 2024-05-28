@@ -24,6 +24,7 @@ import {
 } from "../../../lib/sweetAlert";
 import assert from "assert";
 import { Definer } from "../../../lib/Definer";
+import { useHistory } from "react-router-dom";
 
 /**REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
@@ -38,6 +39,7 @@ const memberFollowersRetriever = createSelector(
 
 export function MemberFollowers(props: any) {
   // INITIALIZATIONS
+  const history = useHistory();
   const { setFollowRebuild, mb_id, followRebuild } = props;
   const { setMemberFollowers } = actionDispatch(useDispatch());
   const { memberFollowers } = useSelector(memberFollowersRetriever);
@@ -78,7 +80,10 @@ export function MemberFollowers(props: any) {
     followersSearchObj.page = value;
     setFollowersSearchObj({ ...followersSearchObj });
   };
-
+  const visitMemberHandler = (mb_id: string) => {
+    history.push(`/member-page/other?mb_id=${mb_id}`);
+    document.location.reload()
+  };
   return (
     <Stack>
       {memberFollowers.map((follower: Follower) => {
@@ -89,6 +94,7 @@ export function MemberFollowers(props: any) {
           <Box className="follow_box">
             <Avatar
               style={{ cursor: "pointer" }}
+              onClick={() => visitMemberHandler(follower?.subscriber_id)}
               alt=""
               src={image_url}
               sx={{ width: 89, height: 89 }}
@@ -102,7 +108,12 @@ export function MemberFollowers(props: any) {
                 height: "85%",
               }}
             >
-              <span className="username_text">
+              <span
+                className="username_text"
+                style={{ cursor: "pointer" }}
+
+                onClick={() => visitMemberHandler(follower?.subscriber_id)}
+              >
                 {follower.subscriber_member_data?.mb_type}
               </span>
               <span style={{ cursor: "pointer" }} className="name_text">

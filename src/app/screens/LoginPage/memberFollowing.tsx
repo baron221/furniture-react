@@ -41,8 +41,9 @@ const memberFollowingsRetriever = createSelector(
 
 export function MemberFollowing(props: any) {
   // INITIALIZATIONS
-  const { setFollowRebuild, mb_id, followRebuild } = props;
+  const history = useHistory();
 
+  const { setFollowRebuild, mb_id, followRebuild } = props;
   const { setMemberFollowings } = actionDispatch(useDispatch());
   const { memberFollowings } = useSelector(memberFollowingsRetriever);
   const [followingsSearchObj, setFollowingsSearchObj] =
@@ -77,7 +78,11 @@ export function MemberFollowing(props: any) {
 
   const handlePaginationChange = (event: any, value: number) => {
     followingsSearchObj.page = value;
-    setFollowingsSearchObj({...followingsSearchObj})
+    setFollowingsSearchObj({ ...followingsSearchObj });
+  };
+  const visitMemberHandler = (mb_id: string) => {
+    history.push(`/member-page/other?mb_id=${mb_id}`);
+    document.location.reload();
   };
   return (
     <Stack>
@@ -89,6 +94,7 @@ export function MemberFollowing(props: any) {
           <Box className="follow_box">
             <Avatar
               style={{ cursor: "pointer" }}
+              onClick={() => visitMemberHandler(following?.follow_id)}
               alt=""
               src={image_url}
               sx={{ width: 89, height: 89 }}
@@ -105,16 +111,19 @@ export function MemberFollowing(props: any) {
               <span className="username_text">
                 {following?.follow_member_data?.mb_type}
               </span>
-              <span style={{ cursor: "pointer" }} className="name_text">
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => visitMemberHandler(following?.follow_id)}
+                className="name_text"
+              >
                 {following?.follow_member_data?.mb_nick}
               </span>
             </div>
             {props.actions_enoubled && (
               <Button
                 variant="contained"
-           
                 className="follow_cancel_btn"
-                onClick={(e) => unSubscribeHandler( e, following?.follow_id)}
+                onClick={(e) => unSubscribeHandler(e, following?.follow_id)}
               >
                 Unfollow
               </Button>
