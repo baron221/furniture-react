@@ -4,6 +4,7 @@ import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom'
 import { VisitOtherPage } from "./VisitOtherPage";
 import { VisitMyPage } from "./VisitMyPage";
 import "../../../css/my_page.css";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 
 function useQuery() {
@@ -12,7 +13,6 @@ function useQuery() {
 }
 
 export function LoginPage(props: any) {
-const {verifiedMemberData}= props;
     let shop = useRouteMatch();
     const query = useQuery();
 const chosen_mb_id:string | null = query.get("mb_id") ?? null;

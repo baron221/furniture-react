@@ -207,7 +207,7 @@ function App() {
 
       <Switch>
         <Route path="/account">
-          <LoginPage verifiedMemberData={verifiedMemberData} />
+          <LoginPage  />
         </Route>
 
         <Route path="/community">

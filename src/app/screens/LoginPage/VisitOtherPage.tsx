@@ -18,6 +18,7 @@ import { MemberFollowers } from "./memberFollowers";
 import { MemberFollowing } from "./memberFollowing";
 import assert from "assert";
 import { Definer } from "../../../lib/Definer";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 /*REDUX*/
 import { Member } from "../../../types/user";
@@ -75,7 +76,7 @@ const handlePaginationChange = (event: any, value: number) => {
 
 export function VisitOtherPage(props: any) {
   const history = useHistory();
-  const { verifiedMemberData, chosen_mb_id, chosen_art_id } = props;
+  const { chosen_mb_id, chosen_art_id } = props;
   const {
     setChosenMember,
     setChosenMemberBoArticles,

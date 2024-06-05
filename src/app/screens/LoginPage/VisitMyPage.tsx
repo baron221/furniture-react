@@ -232,7 +232,7 @@ export function VisitMyPage(props: any) {
                 >
                   <div className="order_user_img">
                     <img
-                      src={"/iconsfurnis/user.png"}
+                      src={verifiedMemberData?.mb_image}
                       className="order_user_avatar"
                       alt=""
                     />
