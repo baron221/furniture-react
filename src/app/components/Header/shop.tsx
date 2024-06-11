@@ -176,7 +176,7 @@ export function NavbarShop(props: any) {
         </Stack>
         <Stack className="center_header">
           <Box fontSize={"24px"}>
-            <span>Home {">"}</span> Shop{" "}
+            <span >Home {">"}</span> Shop{" "}
           </Box>
           <Box fontSize={"64px"} fontWeight={"500"}>
             Shop Page
