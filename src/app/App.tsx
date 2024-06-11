@@ -3,6 +3,8 @@ import "../css/App.css";
 import "../css/navbar.css";
 import "../css/footer.css";
 import "../css/home.css";
+import "../css/chat.css";
+
 import "../app/apiServices/verify";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -28,6 +30,7 @@ import assert from "assert";
 import MemberApiService from "./apiServices/memberApiServices";
 import { CartItem } from "../types/others";
 import { Product } from "../types/product";
+import { CommunityChats } from "./components/chatting/communityChats";
 
 function App() {
   /** INITIALIZATION **/
@@ -229,6 +232,7 @@ function App() {
           <HomePage />
         </Route>
       </Switch>
+      <CommunityChats/>
       <Footer />
       <AuthenticationModal
         loginOpen={loginOpen}
