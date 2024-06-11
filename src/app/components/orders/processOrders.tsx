@@ -63,11 +63,11 @@ export default function ProcessOrders(props: any) {
                   const product: Product = order.product_data.filter(
                     (ele) => ele._id === item.product_id
                   )[0];
-                  const image_path = `${serviceApi}/${product.product_images[0]}`;
+                  const image_path = `${serviceApi}/${product?.product_images[0]}`;
                   return (
                     <Box className="ordersName_price">
                       <img className="orderDishImg" src={image_path} alt="" />
-                      <p className="titleDish"> {product.product_name}</p>
+                      <p className="titleDish"> {product?.product_name}</p>
                       <Box className="priceBox">
                         <p>${item.item_price}</p>
                         <img src="/iconsfurnis/Close.svg" alt="" />

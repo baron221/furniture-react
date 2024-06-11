@@ -33,7 +33,7 @@ export default function FinishedOrders(props: any) {
                   const product: Product = order?.product_data.filter(
                     (ele) => ele._id === item.product_id
                   )[0];
-                  const image_path = `${serviceApi}/ ${product?.product_images[0]}`;
+                  const image_path = `${serviceApi}/${product?.product_images[0]}`;
                   return (
                     <Box className="ordersName_price">
                       <img className="orderDishImg" src={image_path} alt="" />
