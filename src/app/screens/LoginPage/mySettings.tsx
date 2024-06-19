@@ -114,6 +114,8 @@ export function Mysettings() {
             placeholder={verifiedMemberData?.mb_phone}
             type="text"
             name="mb_phone"
+            onChange={changeMemberPhoneHandler}
+
           />
         </div>
         <div className="short_input">
@@ -125,6 +127,7 @@ export function Mysettings() {
             }
             type="text"
             name="mb_phone"
+            onChange={changeMemberAddressHandler}
           />
         </div>
       </Box>
@@ -137,11 +140,14 @@ export function Mysettings() {
               verifiedMemberData?.mb_description ?? "Description not available"
             }
             className="spec_textarea mb_description"
+            onChange={changeMemberDescriptionHandler}
           />
         </div>
       </Box>
       <Box display={"flex"} justifyContent={"flex-end"} sx={{ mt: "25px" }}>
-        <Button variant="contained" onClick={handleSubmitButton}>Save</Button>
+        <Button variant="contained" onClick={handleSubmitButton}>
+          Save
+        </Button>
       </Box>
     </Stack>
   );

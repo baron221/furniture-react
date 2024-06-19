@@ -228,7 +228,7 @@ export function VisitOtherPage(props: any) {
                   <Box className="menu_content">
                     <MemberFollowing
                       actions_enoubled={true}
-                      mb_id={props.verifiedMemberData?._id}
+                      mb_id={verifiedMemberData?._id}
                       setFollowRebuild={setFollowRebuild}
                       followRebuild={followRebuild}
                     />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../css/App.css";
 import "../css/navbar.css";
 import "../css/footer.css";
@@ -10,7 +10,6 @@ import "../app/apiServices/verify";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { CommunityPage } from "./screens/CommunityPage";
 import { ShopPage } from "./screens/ShopPage";
-import { ProductPage } from "./screens/ProductPage";
 import { HomePage } from "./screens/HomePage";
 import { NavbarHome } from "./components/Header";
 import { NavbarShop } from "./components/Header/shop";
@@ -19,14 +18,12 @@ import { Footer } from "./components/footer";
 import { LoginPage } from "./screens/LoginPage";
 import { OrdersPage } from "./screens/OrdersPage";
 import AuthenticationModal from "./components/auth";
-import { Member } from "../types/user";
-import { serviceApi } from "../lib/config";
+
 import {
   sweetFailureProvider,
   sweetTopSmallSuccessAlert,
 } from "../lib/sweetAlert";
 import { Definer } from "../lib/Definer";
-import assert from "assert";
 import MemberApiService from "./apiServices/memberApiServices";
 import { CartItem } from "../types/others";
 import { Product } from "../types/product";
@@ -34,10 +31,8 @@ import { CommunityChats } from "./components/chatting/communityChats";
 
 function App() {
   /** INITIALIZATION **/
-  const [verifiedMemberData, setVerifiedMemberData] = useState<Member | null>(
-    null
-  );
-  const [path, setPath] = useState();
+
+  const [path , setPath] = useState();
   const main_path = window.location.pathname;
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
@@ -49,19 +44,6 @@ function App() {
   const current_cart: CartItem[] = JSON.parse(cartJson) ?? [];
   const [cartItems, setCartItems] = useState<CartItem[]>(current_cart);
 
-  useEffect(() => {
-    console.log("=== useEffect:App===");
-    const memberDataJson: any = localStorage.getItem("member_data")
-      ? localStorage.getItem("member_data")
-      : null;
-    const member_data = memberDataJson ? JSON.parse(memberDataJson) : null;
-    if (member_data) {
-      member_data.mb_image = member_data.mb_image
-        ? `${serviceApi}/${member_data.mb_image}`
-        : "/auth/default_user.svg";
-      setVerifiedMemberData(member_data);
-    }
-  }, [signUpOpen, loginOpen]);
   /**HANDLERS */
 
   const handleSignUpOpen = () => {
@@ -157,7 +139,6 @@ function App() {
           setPath={setPath}
           handleLoginOpen={handleLoginOpen}
           handleSignUpOpen={handleSignUpOpen}
-          verifiedMemberData={verifiedMemberData}
           handleLogOutClick={handleLogOutClick}
           handleCloseLogOut={handleCloseLogOut}
           handleLogoutRequest={handleLogoutRequest}
@@ -175,7 +156,6 @@ function App() {
           setPath={setPath}
           handleLoginOpen={handleLoginOpen}
           handleSignUpOpen={handleSignUpOpen}
-          verifiedMemberData={verifiedMemberData}
           handleLogOutClick={handleLogOutClick}
           handleCloseLogOut={handleCloseLogOut}
           handleLogoutRequest={handleLogoutRequest}
@@ -193,7 +173,6 @@ function App() {
           setPath={setPath}
           handleLoginOpen={handleLoginOpen}
           handleSignUpOpen={handleSignUpOpen}
-          verifiedMemberData={verifiedMemberData}
           handleLogOutClick={handleLogOutClick}
           handleCloseLogOut={handleCloseLogOut}
           handleLogoutRequest={handleLogoutRequest}
@@ -220,7 +199,6 @@ function App() {
           <OrdersPage
             orderRebuild={orderRebuild}
             setOrderRebuild={setOrderRebuild}
-            verifiedMemberData={verifiedMemberData}
 
           />
         </Route>

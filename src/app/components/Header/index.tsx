@@ -20,6 +20,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Fade } from "react-awesome-reveal";
 import Basket from "./basket";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 export function NavbarHome(props: any) {
   return (
@@ -49,7 +50,7 @@ export function NavbarHome(props: any) {
                   </NavLink>
                 </Box>
 
-                {props.verifiedMemberData ? (
+                {verifiedMemberData ? (
                   <Box className="hover" onClick={props.setPath}>
                     <NavLink to="/orders" activeClassName="underline">
                       Orders
@@ -62,7 +63,7 @@ export function NavbarHome(props: any) {
                     Community
                   </NavLink>
                 </Box>
-                {props.verifiedMemberData ? (
+                {verifiedMemberData ? (
                   <Box className="hover" onClick={props.setPath}>
                     <NavLink to="/account" activeClassName="underline">
                       My Page
@@ -75,7 +76,7 @@ export function NavbarHome(props: any) {
                   justifyContent={"space-between"}
                   marginRight={"20px"}
                 >
-                  {props.verifiedMemberData ? null : (
+                  {verifiedMemberData ? null : (
                     <IconButton
                       aria-label="cart"
                       id="basic-button"
@@ -109,7 +110,7 @@ export function NavbarHome(props: any) {
                       />
                     </Badge>
                   </IconButton>
-                  {!props.verifiedMemberData ? (
+                  {!verifiedMemberData ? (
                     <IconButton
                       aria-label="cart"
                       id="basic-button"
@@ -137,7 +138,7 @@ export function NavbarHome(props: any) {
                         borderRadius: "24px",
                         marginLeft: "10px",
                       }}
-                      src={props.verifiedMemberData.mb_image}
+                      src={verifiedMemberData.mb_image}
                       onClick={props.handleLogOutClick}
                     />
                   )}

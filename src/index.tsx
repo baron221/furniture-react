@@ -12,10 +12,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import { SocketContext, socket } from "./app/context/socket";
 
-// const container = document.getElementById("root")!;
-// const root = createRoot(container);
+const container = document.getElementById("root")!;
+const root = createRoot(container);
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
@@ -26,7 +26,6 @@ ReactDOM.render(
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,
-  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
