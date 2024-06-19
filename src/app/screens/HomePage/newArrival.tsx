@@ -83,10 +83,10 @@ export function NewArrival() {
           sx={{ mt: "43px" }}
           justifyContent={"space-around"}
         >
-          {PeakMarkets.map((ele: Market) => {
-            const image_path = `${serviceApi}/${ele.mb_image}`;
+          {PeakMarkets?.map((ele: Market) => {
+            const image_path = `${serviceApi}/${ele?.mb_image}`;
             return (
-              <CssVarsProvider key={ele._id}>
+              <CssVarsProvider key={ele?._id}>
                 <Fade direction="left" triggerOnce={true}>
                   <Card onClick={() => chosenRestaurantHandler(ele._id)}
                     sx={{ minHeight: "400px", width: 349, cursor: "pointer" }}
@@ -102,7 +102,7 @@ export function NewArrival() {
                     />
                     <CardContent sx={{ justifyContent: "flex-end" }}>
                       <Typography level="title-lg" textColor="#fff">
-                        {ele.mb_nick}
+                        {ele?.mb_nick}
                       </Typography>
                       <Typography
                         startDecorator={<LocationOnRoundedIcon />}
@@ -137,7 +137,7 @@ export function NewArrival() {
                         }}
                       >
                         <Favorite
-                          onClick={(e) => targetLikeTop(e, ele._id)}
+                          onClick={(e) => targetLikeTop(e, ele?._id)}
                           style={{
                             fill:
                               ele?.me_liked && ele?.me_liked[0]?.my_favorite
@@ -173,9 +173,9 @@ export function NewArrival() {
                         }}
                       >
                         <div
-                          ref={(element) => (refs.current[ele._id] = element)}
+                          ref={(element) => (refs.current[ele?._id] = element)}
                         >
-                          {ele.mb_likes}
+                          {ele?.mb_likes}
                         </div>
                         <Favorite sx={{ fontSize: 20, marginLeft: "5px" }} />
                       </Typography>
